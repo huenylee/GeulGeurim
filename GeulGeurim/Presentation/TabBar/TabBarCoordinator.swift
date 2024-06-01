@@ -19,20 +19,21 @@ final class TabBarCoordinator: BaseCoordinator {
     libraryCoordinator.start()
     libraryCoordinator.finishDelegate = self
     
-    let moreCoordinator = MoreCoordinator(navigationController: UINavigationController())
-    moreCoordinator.start()
-    moreCoordinator.finishDelegate = self
+    let settingCoordinator = SettingCoordinator(navigationController: UINavigationController())
+    settingCoordinator.start()
+    settingCoordinator.finishDelegate = self
     
     childCoordinators.append(readNowCoordinator)
     childCoordinators.append(libraryCoordinator)
-    childCoordinators.append(moreCoordinator)
+    childCoordinators.append(settingCoordinator)
     
     let tabBarController = TabBarController(tabBarControllers: [
       .readNow: readNowCoordinator.navigationController,
       .library: libraryCoordinator.navigationController,
-      .more: moreCoordinator.navigationController
+      .setting: settingCoordinator.navigationController
     ])
     
+    navigationController.navigationBar.isHidden = true
     navigationController.setViewControllers([tabBarController], animated: false)
     self.tabBarController = tabBarController
   }
