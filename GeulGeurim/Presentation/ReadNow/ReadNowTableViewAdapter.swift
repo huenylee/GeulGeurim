@@ -23,14 +23,14 @@ public final class ReadNowTableViewAdapter: NSObject {
     self.tableView = tableView
     super.init()
     tableView.delegate = self
-    tableView.register(ReadNowTableViewCell.self, forCellReuseIdentifier: ReadNowTableViewCell.identifier)
+    tableView.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
     self.configureDataSource()
   }
   
   private func configureDataSource() {
     diffableDataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier -> UITableViewCell? in
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: ReadNowTableViewCell.identifier, for: indexPath) as? ReadNowTableViewCell else { return nil }
-      cell.configureCell(data: itemIdentifier)
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier, for: indexPath) as? ContentCell else { return nil }
+      cell.configureCell(data: itemIdentifier.file)
       cell.selectionStyle = .none
       return cell
     })
