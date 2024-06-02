@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class SettingController: UIViewController {
+public final class SettingController: BaseController {
   private let mainView: SettingView = SettingView()
   private let tabBarItemType: TabBarItemType = .setting
   
@@ -19,6 +19,5 @@ public final class SettingController: UIViewController {
   public override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = .white
   }
 }
