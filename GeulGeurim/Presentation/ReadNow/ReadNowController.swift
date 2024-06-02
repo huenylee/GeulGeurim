@@ -21,18 +21,14 @@ public final class ReadNowController: BaseController {
     super.viewDidLoad()
     tableViewAdapter.delegate = self
     
-//    tableViewAdapter.applySnapshot(files: [
-//      FileItemWrapper(ContentItem(fileName: "달빛조각사 16권", createdDate: Date(), fileSize: 1)),
-//      FileItemWrapper(ContentItem(fileName: "달빛조각사 17권", createdDate: Date(), fileSize: 1)),
-//      FileItemWrapper(ContentItem(fileName: "달빛조각사 18권", createdDate: Date(), fileSize: 1)),
-//      FileItemWrapper(ContentItem(fileName: "달빛조각사 19권", createdDate: Date(), fileSize: 1))
-//    ])
+    tableViewAdapter.applySnapshot(files: [])
   }
 }
 
 extension ReadNowController: ReadNowTableViewAdapterDelegate {
   func readNowTableView(didUpdateItems itemCount: Int) {
-    mainView.emptyViewIsHidden = itemCount > 0
+    let hasData = itemCount > 0
+    mainView.updateEmptyView(isHidden: hasData)
   }
   
   func readNowTableView(didSelectFileItem file: FileItemWrapper) {

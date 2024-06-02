@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public final class ReadNowView: BaseView {
+public final class ReadNowView: BaseView, EmptyViewRepresnetable {
   private let headerView: UIView = UIView()
   private let titleLabel: UILabel = {
     let label = UILabel()
@@ -24,7 +24,7 @@ public final class ReadNowView: BaseView {
     return tableView
   }()
   
-  private let emptyView: EmptyView = {
+  public let emptyView: UIView = {
     let view = EmptyView()
     view.message = """
     최근 읽은 파일이 없어요.
@@ -33,19 +33,10 @@ public final class ReadNowView: BaseView {
     return view
   }()
   
-  public var emptyViewIsHidden: Bool = true {
-    didSet {
-      if oldValue != emptyViewIsHidden {
-        updateEmptyView(isHidden: emptyViewIsHidden)
-      }
-    }
-  }
-  
   public override init(frame: CGRect) {
     super.init(frame: frame)
     
     configureUI()
-    updateEmptyView(isHidden: false)
   }
   
   public override func configureUI() {
@@ -68,19 +59,6 @@ public final class ReadNowView: BaseView {
       $0.top.equalTo(headerView.snp.bottom).offset(8)
       $0.horizontalEdges.equalToSuperview()
       $0.bottom.equalTo(self.safeAreaLayoutGuide)
-    }
-  }
-  
-  private func updateEmptyView(isHidden: Bool) {
-    if isHidden {
-      emptyView.removeFromSuperview()
-    } else {
-      addSubview(emptyView)
-      emptyView.snp.makeConstraints {
-        $0.center.equalToSuperview()
-        $0.width.equalTo(238)
-        $0.height.equalTo(106)
-      }
     }
   }
 }
