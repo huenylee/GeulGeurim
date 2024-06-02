@@ -7,9 +7,9 @@
 
 import UIKit
 
-public final class BaseController: UIViewController {
+open class BaseController: UIViewController {
   
-  public override func viewIsAppearing(_ animated: Bool) {
+  open override func viewIsAppearing(_ animated: Bool) {
     super.viewIsAppearing(animated)
     
     view.backgroundColor = UIColor.white
