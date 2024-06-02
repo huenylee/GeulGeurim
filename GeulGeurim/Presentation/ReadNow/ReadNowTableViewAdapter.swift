@@ -8,6 +8,7 @@
 import UIKit
 
 protocol ReadNowTableViewAdapterDelegate: AnyObject {
+  func readNowTableView(didUpdateItems itemCount: Int)
   func readNowTableView(didSelectFileItem file: FileItemWrapper)
 }
 
@@ -40,11 +41,12 @@ public final class ReadNowTableViewAdapter: NSObject {
     snapshot.appendSections([0])
     snapshot.appendItems(files, toSection: 0)
     diffableDataSource?.apply(snapshot, animatingDifferences: animated)
+    delegate?.readNowTableView(didUpdateItems: snapshot.numberOfItems)
   }
 }
 
-extension ReadNowTableViewAdapter: UITableViewDelegate {
-  public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+extension ReadNowTableViewAdapter: UITableViewDelegate {  
+  public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let file = diffableDataSource?.itemIdentifier(for: indexPath) else { return }
     delegate?.readNowTableView(didSelectFileItem: file)
   }
