@@ -12,7 +12,7 @@ public final class FolderCell: UITableViewCell {
   private let iconView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(systemName: "folder.fill")
-    imageView.tintColor = UIColor.secondary
+    imageView.tintColor = UIColor.secondaryNormal
     imageView.contentMode = .scaleAspectFit
     return imageView
   }()
