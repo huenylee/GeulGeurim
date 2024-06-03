@@ -14,4 +14,22 @@ open class BaseController: UIViewController {
     
     view.backgroundColor = UIColor.white
   }
+  
+  public init() {
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  open override func viewDidLoad() {
+    super.viewDidLoad()
+    configureUI()
+  }
+  
+  open func configureUI() {
+    
+  }
+  
+  @available(*, unavailable)
+  required public init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
