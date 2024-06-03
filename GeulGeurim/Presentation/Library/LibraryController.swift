@@ -45,7 +45,8 @@ public final class LibraryController: BaseController {
   }
   
   @objc func add() {
-    print(#function)
+    let optionBottomSheetController = LibraryOptionsBottomSheetController()
+    present(optionBottomSheetController, animated: false)
   }
 }
 
