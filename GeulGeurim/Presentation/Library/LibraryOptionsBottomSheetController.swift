@@ -7,8 +7,14 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
-public final class LibraryOptionsBottomSheetController: BaseController {
+public protocol LibraryOptionsBottomSheetDelegate: AnyObject {
+  func presentToDocumentPickerController()
+  func presentToCreateFolderController()
+}
+
+public final class LibraryOptionsBottomSheetController: BaseController, Bindable {
   private let bottomSheetView: LibraryOptionsBottomSheetView = {
     let view = LibraryOptionsBottomSheetView()
     view.layer.cornerRadius = 16
@@ -17,15 +23,24 @@ public final class LibraryOptionsBottomSheetController: BaseController {
   }()
   
   private var bottomSheetTopConstraint: Constraint?
+  private let disposeBag: DisposeBag = DisposeBag()
+  public weak var delegate: LibraryOptionsBottomSheetDelegate?
   
   public override init() {
     super.init()
     
     self.modalPresentationStyle = .overFullScreen
+    bind()
   }
   
   public override func viewDidLoad() {
     super.viewDidLoad()
+  }
+  
+  public override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    animatePresentation()
   }
   
   public override func configureUI() {
@@ -42,10 +57,19 @@ public final class LibraryOptionsBottomSheetController: BaseController {
     setupSwiftGesture()
   }
   
-  public override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    
-    animatePresentation()
+  public func bind() {
+    bottomSheetView.touchEventRelay
+      .bind(with: self) { owner, type in
+        owner.animateDismiss {
+          switch type {
+          case .createFolder:
+            owner.delegate?.presentToCreateFolderController()
+          case .download:
+            owner.delegate?.presentToDocumentPickerController()
+          }
+        }
+      }
+      .disposed(by: disposeBag)
   }
   
   private func animatePresentation() {
@@ -58,7 +82,7 @@ public final class LibraryOptionsBottomSheetController: BaseController {
     }
   }
   
-  private func animateDismiss() {
+  private func animateDismiss(completion: (() -> ())? = nil) {
     bottomSheetView.snp.remakeConstraints {
       $0.top.equalTo(view.snp.bottom)
       $0.horizontalEdges.equalToSuperview()
@@ -69,6 +93,7 @@ public final class LibraryOptionsBottomSheetController: BaseController {
       self?.view.layoutIfNeeded()
     } completion: { [weak self] bool in
       self?.dismiss(animated: false)
+      completion?()
     }
   }
   

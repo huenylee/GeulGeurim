@@ -97,6 +97,7 @@ public final class LibraryOptionsBottomSheetView: BaseView, Touchable, Bindable 
     self.backgroundColor = UIColor.basicWhite
     setupDownloadRow()
     setupCreateFolderRow()
+    bind()
   }
   
   private func setupDownloadRow() {
