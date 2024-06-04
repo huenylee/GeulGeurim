@@ -31,7 +31,7 @@ final class TabBarController: UITabBarController {
   
   /// 탭바 설정 메소드
   private func setUpTabBar() {
-    self.tabBar.tintColor = UIColor.primary
+    self.tabBar.tintColor = UIColor.primaryNormal
     
     let navigationControllers = TabBarItemType.allCases.map { item -> UINavigationController in
       guard let tab = tabBarControllers[item] else {
