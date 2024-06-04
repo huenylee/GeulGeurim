@@ -7,8 +7,11 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxRelay
 
 public final class ContentCell: UITableViewCell {
+  private let containerView: UIControl = UIControl()
   private let iconView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(systemName: "doc.text.fill")
@@ -44,24 +47,70 @@ public final class ContentCell: UITableViewCell {
     return view
   }()
   
+  public let touchEventRelay: PublishRelay<any FileItemProtocol> = .init()
+  private var disposeBag: DisposeBag = DisposeBag()
+  private var file: (any FileItemProtocol)?
+  
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    bind()
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    bind()
+  }
+  
   public override func prepareForReuse() {
     titleLabel.text = nil
     createdDateLabel.text = nil
     fileSizeLabel.text = nil
   }
-
+  
   public func configureCell(data: any FileItemProtocol) {
+    file = data
     selectionStyle = .none
     setupUIWithData(data: data)
     setupConstraints()
   }
   
+  func bind() {
+    containerView.rx.controlEvent(.touchDown)
+      .subscribe(with: self) { owner, _ in
+        owner.press()
+      }
+      .disposed(by: disposeBag)
+    
+    Observable.merge(
+      containerView.rx.controlEvent(.touchDragExit).map { _ in Void() },
+      containerView.rx.controlEvent(.touchCancel).map { _ in Void() }
+    )
+    .bind(with: self) { owner, _ in
+      owner.unpress()
+    }
+    .disposed(by: disposeBag)
+    
+    containerView.rx.controlEvent(.touchUpInside)
+      .delay(.milliseconds(100), scheduler: MainScheduler.asyncInstance)
+      .bind(with: self) { owner, _ in
+        owner.unpress()
+        guard let file = owner.file else { return }
+        owner.touchEventRelay.accept(file)
+      }
+      .disposed(by: disposeBag)
+  }
+  
   private func setupConstraints() {
+    contentView.addSubview(containerView)
     contentView.addSubview(iconView)
     contentView.addSubview(titleLabel)
     contentView.addSubview(createdDateLabel)
     contentView.addSubview(fileSizeLabel)
     contentView.addSubview(dividerLineView)
+    
+    containerView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
     
     iconView.snp.makeConstraints {
       $0.leading.equalToSuperview().offset(23)
@@ -96,5 +145,20 @@ public final class ContentCell: UITableViewCell {
     titleLabel.text = data.name
     createdDateLabel.text = "2024. 05. 28."
     fileSizeLabel.text = "1KB"
+  }
+  
+  enum pressEventType {
+    case press
+    case unpress
+  }
+}
+
+extension ContentCell: Pressable {
+  public func press() {
+    contentView.backgroundColor = .gray100
+  }
+  
+  public func unpress() {
+    contentView.backgroundColor = .basicWhite
   }
 }
