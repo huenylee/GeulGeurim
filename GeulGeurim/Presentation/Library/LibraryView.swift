@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 public final class LibraryView: BaseView, EmptyViewRepresnetable {
+  private let headerView: UIView = UIView()
   private let titleLabel: UILabel = {
     let label = UILabel()
     label.text = "보관함"
@@ -33,17 +34,26 @@ public final class LibraryView: BaseView, EmptyViewRepresnetable {
     return view
   }()
   
-  public override init(frame: CGRect) {
-    super.init(frame: frame)
-    
-    configureUI()
-  }
-  
   public override func configureUI() {
-    addSubview(titleLabel)
-    titleLabel.snp.makeConstraints {
-      $0.leading.equalToSuperview().offset(20)
+    addSubview(headerView)
+    headerView.addSubview(titleLabel)
+    
+    headerView.snp.makeConstraints {
       $0.top.equalTo(self.safeAreaLayoutGuide)
+      $0.horizontalEdges.equalToSuperview().inset(20)
+      $0.height.equalTo(52)
+    }
+    
+    titleLabel.snp.makeConstraints {
+      $0.leading.equalToSuperview()
+      $0.centerY.equalToSuperview()
+    }
+    
+    addSubview(tableView)
+    tableView.snp.makeConstraints {
+      $0.top.equalTo(headerView.snp.bottom).offset(8)
+      $0.horizontalEdges.equalToSuperview()
+      $0.bottom.equalTo(self.safeAreaLayoutGuide)
     }
   }
 }
