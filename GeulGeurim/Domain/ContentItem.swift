@@ -11,16 +11,18 @@ public struct ContentItem: FileItemProtocol {
   public let id: UUID = UUID()
   public var name: String
   public let createdDate: Date
-  public let fileSize: Int
-  public let type: FileItemType = .content(.txt)
+  public let fileSize: Int64
+  public let type: FileItemType
   
-  init(fileName: String, createdDate: Date, fileSize: Int) {
+  init(fileName: String, createdDate: Date, fileSize: Int64, type: FileItemType) {
     self.name = fileName
     self.createdDate = createdDate
     self.fileSize = fileSize
+    self.type = type
   }
 }
 
-public enum ContentItemType: Hashable {
+public enum ContentItemType: String, Hashable {
   case txt
+  case pdf
 }

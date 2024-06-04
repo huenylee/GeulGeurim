@@ -10,12 +10,12 @@ import Foundation
 public struct FolderItem: FileItemProtocol {
   public var name: String
   public let createdDate: Date
-  public let fileSize: Int
+  public let subfilesCount: Int
   public let type: FileItemType = .folder
   
-  init(fileName: String, createdDate: Date, fileSize: Int) {
+  init(fileName: String, createdDate: Date, subfilesCount: Int) {
     self.name = fileName
     self.createdDate = createdDate
-    self.fileSize = fileSize
+    self.subfilesCount = subfilesCount
   }
 }
