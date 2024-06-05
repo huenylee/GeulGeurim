@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-private class BottomSheetRowView: BaseControl, Touchable, Pressable, Bindable {
+private class BottomSheetRowView: BaseControl, RxTouchable, RxPressable, RxBindable {
   private let iconView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFit
@@ -85,7 +85,7 @@ private class BottomSheetRowView: BaseControl, Touchable, Pressable, Bindable {
   }
 }
 
-public final class LibraryOptionsBottomSheetView: BaseView, Touchable, Bindable {
+public final class LibraryOptionsBottomSheetView: BaseView, RxTouchable, RxBindable {
   private let downloadRowView: BottomSheetRowView = BottomSheetRowView(title: "다운로드", icon: UIImage(systemName: "icloud.and.arrow.down"))
   private let createFolderRowView: BottomSheetRowView = BottomSheetRowView(title: "폴더 생성", icon: UIImage(systemName: "folder.badge.plus"))
   

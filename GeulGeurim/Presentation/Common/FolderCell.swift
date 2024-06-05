@@ -94,7 +94,8 @@ public final class FolderCell: UITableViewCell {
   
   private func setupUIWithData(data: any FileItemProtocol) {
     titleLabel.text = data.name
-    createdDateLabel.text = "2024. 05. 28."
-    fileCountLabel.text = "파일 1개"
+    createdDateLabel.text = data.createdDate.toString(pattern: "yyyy. MM. dd")
+    guard let folder = data as? FolderItem else { return }
+    fileCountLabel.text = "파일 \(folder.subfilesCount)개"
   }
 }
