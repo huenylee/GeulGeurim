@@ -20,7 +20,16 @@ public final class LibraryController: BaseController {
   public override func viewIsAppearing(_ animated: Bool) {
     super.viewIsAppearing(animated)
     configureNavigationItem()
+    fetch()
+  }
+  
+  public override func viewDidLoad() {
+    super.viewDidLoad()
     
+    tableViewAdapter.delegate = self
+  }
+  
+  private func fetch() {
     let fileRepository = FileManagerRepository.shared
     do {
       let files = try fileRepository.listFiles()
@@ -30,12 +39,6 @@ public final class LibraryController: BaseController {
     } catch {
       
     }
-  }
-  
-  public override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    tableViewAdapter.delegate = self
   }
   
   private func configureNavigationItem() {
@@ -66,8 +69,8 @@ extension LibraryController: LibraryTableViewAdapterDelegate {
     mainView.updateEmptyView(isHidden: hasData)
   }
   
-  func libraryTableView(didSelectFileItem file: FileItemWrapper) {
-    print("잇힝~")
+  func libraryTableView(didSelectFileItem file: any FileItemProtocol) {
+    print(file.name)
   }
 }
 
@@ -79,7 +82,11 @@ extension LibraryController: LibraryOptionsBottomSheetDelegate {
   }
   
   public func presentToCreateFolderController() {
-    print("폴더 컨트롤러로 보내라~")
+    let createFolderModal = LibraryCreateFolderController()
+    createFolderModal.dismissCallback = {
+      return self.fetch()
+    }
+    present(createFolderModal, animated: false)
   }
 }
 
@@ -88,29 +95,38 @@ extension LibraryController: UIDocumentPickerDelegate {
     let fileRepository = FileManagerRepository.shared
     
     if let selectedFileURL = urls.first {
-      print("Selected file URL: \(selectedFileURL)")
       
       let fileName = selectedFileURL.lastPathComponent
       if let encodedString = fileName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
          let url = URL(string: encodedString),
-         let decodedString = url.lastPathComponent.removingPercentEncoding {
-        print("Decoded file name: \(decodedString)")
+         let _ = url.lastPathComponent.removingPercentEncoding {
         
-        // 파일 데이터 가져오기
         if let fileData = try? Data(contentsOf: selectedFileURL) {
           let type = checkFileType(for: fileData)
           switch type {
           case .txt:
-            print("txt 임~")
             do {
+              print(selectedFileURL)
               try fileRepository.saveFile(data: fileData, to: fileName)
+              fetch()
+            } catch FileManagerRepositoryError.fileAlreadyExists {
+              let alertController = UIAlertController(title: nil, message: "현재 디렉토리에 같은 이름의 파일이 존재합니다.", preferredStyle: .alert)
+              let alertAction = UIAlertAction(title: "확인", style: .cancel)
+              alertController.addAction(alertAction)
+              present(alertController, animated: true)
+            } catch FileManagerRepositoryError.writeFailed {
+              let alertController = UIAlertController(title: "파일 불러오기 실패", message: "개발자에게 문의하세요", preferredStyle: .alert)
+              let alertAction = UIAlertAction(title: "확인", style: .cancel)
+              alertController.addAction(alertAction)
             } catch {
-              print(error)
+              let alertController = UIAlertController(title: "알 수 없는 오류", message: "개발자에게 문의하세요", preferredStyle: .alert)
+              let alertAction = UIAlertAction(title: "확인", style: .cancel)
+              alertController.addAction(alertAction)
             }
           case .pdf:
-            print("pdf 임~")
+            print("pdf file")
           case .unknown:
-            print("모르는 확장자 에러처리.")
+            print("unkown file")
           }
         }
       }
@@ -123,21 +139,16 @@ extension LibraryController: UIDocumentPickerDelegate {
 }
 
 func checkFileType(for data: Data) -> FileType {
-  // TXT 파일 확인
   if String(data: data, encoding: .utf8) != nil {
-    // 일반적인 텍스트 파일이면 TXT 파일로 간주
     return .txt
   }
   
-  // PDF 파일의 매직 넘버
   let pdfMagicNumber = Data([0x25, 0x50, 0x44, 0x46, 0x2D]) // %PDF-
   
-  // PDF 파일 매직 넘버 확인
   if data.prefix(pdfMagicNumber.count) == pdfMagicNumber {
     return .pdf
   }
   
-  // 나머지 파일은 알 수 없는 파일로 간주
   return .unknown
 }
 

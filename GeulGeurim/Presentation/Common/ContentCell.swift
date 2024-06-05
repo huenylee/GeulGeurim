@@ -143,8 +143,17 @@ public final class ContentCell: UITableViewCell {
   
   private func setupUIWithData(data: any FileItemProtocol) {
     titleLabel.text = data.name
-    createdDateLabel.text = "2024. 05. 28."
-    fileSizeLabel.text = "1KB"
+    createdDateLabel.text = data.createdDate.toString(pattern: "yyyy. MM. dd")
+    guard let content = data as? ContentItem else { return }
+    fileSizeLabel.text = convertBytesToKB(bytes: content.fileSize)
+  }
+  
+  func convertBytesToKB(bytes: Int64) -> String {
+    let kb = Double(bytes) / 1024 // 바이트를 KB로 변환
+    let roundedKB = round(kb * 10) / 10 // 소숫점 첫째 자리까지 반올림
+    let formattedKB = String(format: "%.1f KB", roundedKB) // 문자열 형식으로 변환
+
+    return formattedKB
   }
   
   enum pressEventType {
@@ -153,7 +162,7 @@ public final class ContentCell: UITableViewCell {
   }
 }
 
-extension ContentCell: Pressable {
+extension ContentCell: RxPressable {
   public func press() {
     contentView.backgroundColor = .gray100
   }

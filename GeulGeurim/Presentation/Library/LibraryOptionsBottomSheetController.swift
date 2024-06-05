@@ -14,7 +14,7 @@ public protocol LibraryOptionsBottomSheetDelegate: AnyObject {
   func presentToCreateFolderController()
 }
 
-public final class LibraryOptionsBottomSheetController: BaseController, Bindable {
+public final class LibraryOptionsBottomSheetController: BaseController, RxBindable {
   private let bottomSheetView: LibraryOptionsBottomSheetView = {
     let view = LibraryOptionsBottomSheetView()
     view.layer.cornerRadius = 16
@@ -75,7 +75,7 @@ public final class LibraryOptionsBottomSheetController: BaseController, Bindable
   private func animatePresentation() {
     bottomSheetTopConstraint?.update(offset: -194)
     
-    UIView.animate(withDuration: 0.3) { [weak self] in
+    UIView.animate(withDuration: 0.2) { [weak self] in
       self?.view.alpha = 1
       self?.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
       self?.view.layoutIfNeeded()
@@ -88,7 +88,7 @@ public final class LibraryOptionsBottomSheetController: BaseController, Bindable
       $0.horizontalEdges.equalToSuperview()
     }
     
-    UIView.animate(withDuration: 0.3) { [weak self] in
+    UIView.animate(withDuration: 0.2) { [weak self] in
       self?.view.backgroundColor = .clear
       self?.view.layoutIfNeeded()
     } completion: { [weak self] bool in

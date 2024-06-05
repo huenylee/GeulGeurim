@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol LibraryTableViewAdapterDelegate: AnyObject {
   func libraryTableView(didUpdateItems itemCount: Int)
-  func libraryTableView(didSelectFileItem file: FileItemWrapper)
+  func libraryTableView(didSelectFileItem file: any FileItemProtocol)
 }
 
 public final class LibraryTableViewAdapter: NSObject {
@@ -18,11 +19,11 @@ public final class LibraryTableViewAdapter: NSObject {
   private var tableView: UITableView
   private var diffableDataSource: DiffableDataSource?
   weak var delegate: LibraryTableViewAdapterDelegate?
+  private let disposeBag: DisposeBag = DisposeBag()
   
   public init(tableView: UITableView) {
     self.tableView = tableView
     super.init()
-    tableView.delegate = self
     self.registerCells()
     self.configureDataSource()
   }
@@ -30,6 +31,7 @@ public final class LibraryTableViewAdapter: NSObject {
   private func configureDataSource() {
     diffableDataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier -> UITableViewCell? in
       let cell = self.configureCell(for: tableView, at: indexPath, with: itemIdentifier)
+
       return cell
     })
   }
@@ -44,6 +46,11 @@ public final class LibraryTableViewAdapter: NSObject {
     case .content:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier, for: indexPath) as? ContentCell else { return nil }
       cell.configureCell(data: itemIdentifier.file)
+      cell.touchEventRelay
+        .bind(with: self) { owner, file in
+          owner.delegate?.libraryTableView(didSelectFileItem: file)
+        }
+        .disposed(by: disposeBag)
       return cell
     case .folder:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: FolderCell.identifier, for: indexPath) as? FolderCell else { return nil }
@@ -58,13 +65,6 @@ public final class LibraryTableViewAdapter: NSObject {
     snapshot.appendItems(files, toSection: 0)
     diffableDataSource?.apply(snapshot, animatingDifferences: animated)
     delegate?.libraryTableView(didUpdateItems: snapshot.numberOfItems)
-  }
-}
-
-extension LibraryTableViewAdapter: UITableViewDelegate {
-  public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let file = diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-    delegate?.libraryTableView(didSelectFileItem: file)
   }
 }
 

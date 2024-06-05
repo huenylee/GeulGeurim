@@ -1,5 +1,5 @@
 //
-//  Touchable.swift
+//  RxTouchable.swift
 //  GeulGeurim
 //
 //  Created by HUNHEE LEE on 3.06.2024.
@@ -8,7 +8,7 @@
 import UIKit
 import RxCocoa
 
-/// `Touchable` 프로토콜은 UIView 또는 그 서브 클래스에서 터치 이벤트를 처리하기 위한 인터페이스를 정의해요.
+/// `RxTouchable` 프로토콜은 UIView 또는 그 서브 클래스에서 터치 이벤트를 처리하기 위한 인터페이스를 정의해요.
 ///
 /// 이 프로토콜을 준수하는 객체는 터치 이벤트를 `TouchEventType` 열거형을 사용하여 `touchEventRelay`를 통해 전달해요.
 ///
@@ -19,7 +19,7 @@ import RxCocoa
 /// `touchEventRelay`는 터치 이벤트를 방출하는 PublishRelay에요.
 /// 뷰 계층 간에는 touchEvent를 통해 이벤트를 방출, 구독해요.
 ///
-public protocol Touchable: UIView {
+public protocol RxTouchable: UIView {
   associatedtype TouchEventType
   var touchEventRelay: PublishRelay<TouchEventType> { get }
 }
