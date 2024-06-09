@@ -37,15 +37,8 @@ public struct FileManagerRepository: FileRepositoryProtocol {
   public func saveFile(data: Data, to fileName: String) throws {
     let fileURL = FileManagerRepository.baseDirectory.appendingPathComponent(fileName)
     
-    let filePath: String = {
-      if #available(iOS 16.0, *) {
-        return fileURL.path()
-      } else {
-        return fileURL.path
-      }
-    }()
+    let filePath: String = fileURL.path
     
-    print(filePath)
     if fileManager.fileExists(atPath: filePath) {
       throw FileManagerRepositoryError.fileAlreadyExists
     }
