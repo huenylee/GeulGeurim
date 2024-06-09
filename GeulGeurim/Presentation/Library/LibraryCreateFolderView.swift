@@ -43,6 +43,7 @@ public final class LibraryCreateFolderView: BaseView, RxTouchable, RxBindable {
   
   public let textField: UITextField = {
     let field = UITextField()
+    field.autocorrectionType = .no
     field.placeholder = "폴더 이름을 입력하세요."
     return field
   }()
@@ -61,7 +62,7 @@ public final class LibraryCreateFolderView: BaseView, RxTouchable, RxBindable {
     addSubview(headerView)
     headerView.addSubview(titleLabel)
     headerView.addSubview(createButton)
-
+    
     addSubview(dividerView)
     addSubview(bodyView)
     bodyView.addSubview(textField)
@@ -102,12 +103,18 @@ public final class LibraryCreateFolderView: BaseView, RxTouchable, RxBindable {
   public func bind() {
     textField.rx.text
       .bind(with: self) { owner, text in
-        owner.createButton.isEnabled = text?.count ?? 0 > 0 ? true : false
+        let isEnabled: Bool = {
+          guard let text = text else { return false }
+          let trimmedText = text.trimmingCharacters(in: .whitespaces)
+          return !trimmedText.isEmpty
+        }()
+        owner.createButton.isEnabled = isEnabled
       }
       .disposed(by: disposeBag)
     
     createButton.rx.tap
       .compactMap { self.textField.text }
       .bind(to: touchEventRelay)
-      .disposed(by: disposeBag)  }
+      .disposed(by: disposeBag)
+  }
 }
