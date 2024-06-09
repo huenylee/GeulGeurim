@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public final class FolderCell: UITableViewCell {
+public final class FolderCell: PressableCell {
   private let iconView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(systemName: "folder.fill")
@@ -44,6 +44,14 @@ public final class FolderCell: UITableViewCell {
     return view
   }()
   
+  private let arrowRightImageView: UIImageView = {
+    let image = UIImage(named: "ArrowRight")
+    let view = UIImageView()
+    view.contentMode = .scaleAspectFit
+    view.image = image
+    return view
+  }()
+  
   public override func prepareForReuse() {
     titleLabel.text = nil
     createdDateLabel.text = nil
@@ -54,14 +62,21 @@ public final class FolderCell: UITableViewCell {
     selectionStyle = .none
     setupUIWithData(data: data)
     setupConstraints()
+    
+    touchableClosure = {
+      print("이건 폴더얌~")
+    }
   }
   
-  private func setupConstraints() {
+  override func setupConstraints() {
+    super.setupConstraints()
+    
     contentView.addSubview(iconView)
     contentView.addSubview(titleLabel)
     contentView.addSubview(createdDateLabel)
     contentView.addSubview(fileCountLabel)
     contentView.addSubview(dividerLineView)
+    contentView.addSubview(arrowRightImageView)
     
     iconView.snp.makeConstraints {
       $0.leading.equalToSuperview().offset(23)
@@ -89,6 +104,13 @@ public final class FolderCell: UITableViewCell {
       $0.bottom.equalToSuperview()
       $0.horizontalEdges.equalToSuperview().inset(20)
       $0.height.equalTo(1)
+    }
+    
+    
+    arrowRightImageView.snp.makeConstraints {
+      $0.size.equalTo(14)
+      $0.trailing.equalToSuperview().offset(-17)
+      $0.centerY.equalToSuperview()
     }
   }
   
