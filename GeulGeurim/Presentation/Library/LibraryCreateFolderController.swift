@@ -29,9 +29,13 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
     bind()
   }
   
+  public override func viewIsAppearing(_ animated: Bool) {
+    super.viewIsAppearing(animated)
+    modalView.textField.becomeFirstResponder()
+  }
+  
   public override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    modalView.textField.becomeFirstResponder()
     animatePresentation()
   }
   
@@ -64,7 +68,7 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   }
   
   private func animatePresentation() {
-    UIView.animate(withDuration: 0.2) { [weak self] in
+    UIView.animate(withDuration: 0.15) { [weak self] in
       self?.view.alpha = 1
       self?.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
       self?.view.layoutIfNeeded()
@@ -72,7 +76,7 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   }
   
   private func animateDismiss(completion: (() -> ())? = nil) {
-    UIView.animate(withDuration: 0.2) { [weak self] in
+    UIView.animate(withDuration: 0.15) { [weak self] in
       self?.view.backgroundColor = .clear
       self?.view.layoutIfNeeded()
       self?.view.endEditing(true)
