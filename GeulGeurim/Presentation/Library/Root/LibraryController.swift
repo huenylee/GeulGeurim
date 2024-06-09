@@ -11,6 +11,14 @@ public final class LibraryController: BaseController {
   private let mainView: LibraryView = LibraryView()
   private let tabBarItemType: TabBarItemType = .library
   private lazy var tableViewAdapter: LibraryTableViewAdapter = LibraryTableViewAdapter(tableView: mainView.tableView)
+  private lazy var createFolderModal: LibraryCreateFolderController = {
+    let controller = LibraryCreateFolderController()
+    controller.dismissCallback = { [weak self] in
+      guard let self else { return }
+      return self.fetch()
+    }
+    return controller
+  }()
   
   public override func loadView() {
     super.loadView()
@@ -82,10 +90,6 @@ extension LibraryController: LibraryOptionsBottomSheetDelegate {
   }
   
   public func presentToCreateFolderController() {
-    let createFolderModal = LibraryCreateFolderController()
-    createFolderModal.dismissCallback = {
-      return self.fetch()
-    }
     present(createFolderModal, animated: false)
   }
 }
