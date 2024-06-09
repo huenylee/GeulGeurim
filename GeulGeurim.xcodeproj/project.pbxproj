@@ -16,6 +16,7 @@
 		5C283D722C0EE8B2005B965A /* LibraryCreateFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C283D712C0EE8B2005B965A /* LibraryCreateFolderView.swift */; };
 		5C283D742C0EE8ED005B965A /* RxInputReceivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */; };
 		5C408DFF2C0F711400B57A56 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C408DFE2C0F711400B57A56 /* Date.swift */; };
+		5C408E022C12C3F400B57A56 /* PressableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C408E012C12C3F400B57A56 /* PressableCell.swift */; };
 		5C840FE62C05B7DB001131C6 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE52C05B7DB001131C6 /* LibraryView.swift */; };
 		5C840FE82C05B7E1001131C6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE72C05B7E1001131C6 /* SettingView.swift */; };
 		5C840FEA2C05BB2B001131C6 /* ReadNowTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */; };
@@ -92,6 +93,7 @@
 		5C283D712C0EE8B2005B965A /* LibraryCreateFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCreateFolderView.swift; sourceTree = "<group>"; };
 		5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxInputReceivable.swift; sourceTree = "<group>"; };
 		5C408DFE2C0F711400B57A56 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		5C408E012C12C3F400B57A56 /* PressableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressableCell.swift; sourceTree = "<group>"; };
 		5C840FE52C05B7DB001131C6 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		5C840FE72C05B7E1001131C6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadNowTableViewAdapter.swift; sourceTree = "<group>"; };
@@ -193,6 +195,17 @@
 				5C8410052C0C5CFB001131C6 /* LibraryTableViewAdapter.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		5C408E002C12C36C00B57A56 /* RxProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				5CD85B3B2C0D8C51004A03E4 /* RxTouchable.swift */,
+				5CD85B472C0D8D6E004A03E4 /* RxPressable.swift */,
+				5CD85B492C0D8EDA004A03E4 /* RxBindable.swift */,
+				5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */,
+			);
+			path = RxProtocols;
 			sourceTree = "<group>";
 		};
 		5C840FEB2C05BCDE001131C6 /* Domain */ = {
@@ -416,11 +429,9 @@
 		5CBD4C172C059CE700E810EF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5C408E002C12C36C00B57A56 /* RxProtocols */,
 				5CBD4C152C059CDC00E810EF /* Base */,
-				5CD85B3B2C0D8C51004A03E4 /* RxTouchable.swift */,
-				5CD85B472C0D8D6E004A03E4 /* RxPressable.swift */,
-				5CD85B492C0D8EDA004A03E4 /* RxBindable.swift */,
-				5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */,
+				5C408E012C12C3F400B57A56 /* PressableCell.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -615,6 +626,7 @@
 				5CBD4BF32C0509E100E810EF /* SettingController.swift in Sources */,
 				5CBD4BEB2C05002F00E810EF /* BaseCoordinator.swift in Sources */,
 				5CBD4BF72C050A0F00E810EF /* SettingCoordinator.swift in Sources */,
+				5C408E022C12C3F400B57A56 /* PressableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
