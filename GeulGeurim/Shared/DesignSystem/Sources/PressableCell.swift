@@ -12,7 +12,9 @@ import RxRelay
 
 public class PressableCell: UITableViewCell {
   private let containerView: UIControl = UIControl()
-  public var touchableClosure: (() -> ())?
+  private var ignoreTouchUp: Bool?
+  
+  public var touchableClosure: ((TouchUpType) -> ())?
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -22,12 +24,15 @@ public class PressableCell: UITableViewCell {
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    setupConstraints()
+    
+  }
+  
+  public override func prepareForReuse() {
+    super.prepareForReuse()
     bind()
   }
-
-  public var disposeBag: DisposeBag = DisposeBag()
   
+  public var disposeBag: DisposeBag = DisposeBag()
   func setupConstraints() {
     contentView.addSubview(containerView)
     
@@ -37,6 +42,8 @@ public class PressableCell: UITableViewCell {
   }
   
   func bind() {
+    disposeBag = DisposeBag()
+    
     containerView.rx.controlEvent(.touchDown)
       .subscribe(with: self) { owner, _ in
         owner.press()
@@ -53,24 +60,56 @@ public class PressableCell: UITableViewCell {
     .disposed(by: disposeBag)
     
     containerView.rx.controlEvent(.touchUpInside)
+      .filter { [weak self] in
+        guard let self,
+              let ignoreTouchUp = self.ignoreTouchUp else { return true }
+        return ignoreTouchUp
+      }
+      .do { [weak self] _ in
+        self?.touchableClosure?(.short)
+      }
       .delay(.milliseconds(70), scheduler: MainScheduler.asyncInstance)
       .bind(with: self) { owner, _ in
         owner.unpress()
       }
       .disposed(by: disposeBag)
     
-    containerView.rx.controlEvent(.touchUpInside)
+//    containerView.rx.controlEvent(.touchUpInside)
+//      .filter { [weak self] in
+//        guard let self,
+//              let ignoreTouchUp = self.ignoreTouchUp else { return false }
+//        return ignoreTouchUp
+//      }
+//      .bind(with: self) { owner, _ in
+//        owner.touchableClosure?(.short)
+//      }
+//      .disposed(by: disposeBag)
+    
+    let longPressRecognizer = UILongPressGestureRecognizer()
+    longPressRecognizer.minimumPressDuration = 0.7
+    containerView.addGestureRecognizer(longPressRecognizer)
+    
+    longPressRecognizer.rx.event
+      .filter { $0.state == .began }
       .bind(with: self) { owner, _ in
-        owner.touchableClosure?()
+        owner.ignoreTouchUp = false
+        owner.touchableClosure?(.long)
+      }
+      .disposed(by: disposeBag)
+    
+    longPressRecognizer.rx.event
+      .filter { $0.state == .ended || $0.state == .cancelled }
+      .subscribe(with: self) { owner, _ in
+        owner.ignoreTouchUp = true
       }
       .disposed(by: disposeBag)
   }
 }
 
 extension PressableCell: RxPressable {
-  enum pressEventType {
-    case press
-    case unpress
+  public enum TouchUpType {
+    case short
+    case long
   }
   
   public func press() {

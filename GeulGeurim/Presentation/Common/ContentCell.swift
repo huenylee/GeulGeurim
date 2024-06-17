@@ -47,25 +47,36 @@ public final class ContentCell: PressableCell {
     return view
   }()
   
+  public enum TouchEventType {
+    case open(any FileProtocol)
+    case actionMenu(any FileProtocol)
+  }
   
-  public let touchEventRelay: PublishRelay<any FileItemProtocol> = .init()
-  private var file: (any FileItemProtocol)?
+  public let touchEventRelay: PublishRelay<TouchEventType> = .init()
+  private var file: (any FileProtocol)?
   
   public override func prepareForReuse() {
+    super.prepareForReuse()
     titleLabel.text = nil
     createdDateLabel.text = nil
     fileSizeLabel.text = nil
   }
   
-  public func configureCell(data: any FileItemProtocol) {
+  public func configureCell(data: any FileProtocol) {
     file = data
     selectionStyle = .none
     setupUIWithData(data: data)
     setupConstraints()
     
-    touchableClosure = { [weak self] in
+    touchableClosure = { [weak self] type in
       guard let file = self?.file else { return }
-      self?.touchEventRelay.accept(file)
+      
+      switch type {
+      case .long:
+        self?.touchEventRelay.accept(.actionMenu(file))
+      case .short:
+        self?.touchEventRelay.accept(.open(file))
+      }
     }
   }
   
@@ -107,18 +118,28 @@ public final class ContentCell: PressableCell {
     }
   }
   
-  private func setupUIWithData(data: any FileItemProtocol) {
+  private func setupUIWithData(data: any FileProtocol) {
     titleLabel.text = data.name
     createdDateLabel.text = data.createdDate.toString(pattern: "yyyy. MM. dd")
-    guard let content = data as? ContentItem else { return }
-    fileSizeLabel.text = convertBytesToKB(bytes: content.fileSize)
+    guard let content = data as? ContentFile else { return }
+    fileSizeLabel.text = convertBytesToReadableUnit(bytes: content.fileSize)
   }
   
-  func convertBytesToKB(bytes: Int64) -> String {
-    let kb = Double(bytes) / 1024 // 바이트를 KB로 변환
-    let roundedKB = round(kb * 10) / 10 // 소숫점 첫째 자리까지 반올림
-    let formattedKB = String(format: "%.1f KB", roundedKB) // 문자열 형식으로 변환
-
-    return formattedKB
+  func convertBytesToReadableUnit(bytes: Int64) -> String {
+    let units = ["B", "KB", "MB"]
+    var value = Double(bytes)
+    var unitIndex = 0
+    
+    // 바이트 값이 1024 이상인 경우 단위 변경
+    while value >= 1024 && unitIndex < units.count - 1 {
+      value /= 1024
+      unitIndex += 1
+    }
+    
+    // 소숫점 첫째 자리까지 반올림
+    let roundedValue = round(value * 10) / 10
+    let formattedValue = String(format: "%.1f %@", roundedValue, units[unitIndex])
+    
+    return formattedValue
   }
 }

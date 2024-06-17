@@ -20,9 +20,12 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   
   private var modalTopConstraint: Constraint?
   private let disposeBag: DisposeBag = DisposeBag()
-  public var dismissCallback: (() -> ())?
   
-  public override init() {
+  public var dismissCallback: (() -> ())?
+  public let directoryPath: String
+  
+  public init(directoryPath: String) {
+    self.directoryPath = directoryPath
     super.init()
     
     self.modalPresentationStyle = .overFullScreen
@@ -56,7 +59,7 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
       .bind(with: self) { owner, folderName in
         let fileRepository = FileManagerRepository.shared
         do {
-          try fileRepository.createDirectory(name: folderName)
+          try fileRepository.createDirectory(name: folderName, at: owner.directoryPath)
           owner.animateDismiss(completion: owner.dismissCallback)
         } catch FileManagerRepositoryError.directoryAlreadyExists {
           print("이미 같은거 있어~")
@@ -78,12 +81,17 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   private func animateDismiss(completion: (() -> ())? = nil) {
     UIView.animate(withDuration: 0.15) { [weak self] in
       self?.view.backgroundColor = .clear
-      self?.view.layoutIfNeeded()
-      self?.view.endEditing(true)
+      guard let self else { return }
+      self.modalView.snp.remakeConstraints {
+        $0.bottom.equalTo(self.view.snp.bottom).offset(self.modalView.frame.height)
+        $0.horizontalEdges.equalToSuperview()
+      }
+      self.view.layoutIfNeeded()
     } completion: { [weak self] bool in
       self?.dismiss(animated: false)
       completion?()
     }
+    view.endEditing(true)
   }
   
   private func setupTapGesture() {

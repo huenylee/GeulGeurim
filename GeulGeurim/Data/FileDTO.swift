@@ -15,18 +15,21 @@ public struct FileInfo {
   let modificationDate: Date?
   let fileExtension: String
   let numberOfItems: Int?
+  let data: Data?
+  let path: String
 }
 
 public extension FileInfo {
-  func todomain() -> (any FileItemProtocol)? {
+  func todomain() -> (any FileProtocol)? {
     guard let creationDate else { return nil }
     if isDirectory {
       guard let numberOfItems else { return nil }
-      return FolderItem(fileName: name, createdDate: creationDate, subfilesCount: numberOfItems)
+      return FolderFile(name: name, createdDate: creationDate, subfilesCount: numberOfItems, path: path)
     } else {
-      guard let type = ContentItemType(rawValue: fileExtension) else { return nil }
+      guard let type = ContentFileType(rawValue: fileExtension) else { return nil }
       guard let fileSize else { return nil }
-      return ContentItem(fileName: name, createdDate: creationDate, fileSize: fileSize, type: .content(type))
+      guard let data else { return nil }
+      return ContentFile(name: name, createdDate: creationDate, fileSize: fileSize, type: .content(type), data: data, path: path)
     }
   }
 }

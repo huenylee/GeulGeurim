@@ -6,50 +6,79 @@
 //
 
 import UIKit
+import RxSwift
+import ReactorKit
 
-public final class LibraryController: BaseController {
+public final class LibraryController: BaseController, ReactorKit.View {
   private let mainView: LibraryView = LibraryView()
   private let tabBarItemType: TabBarItemType = .library
   private lazy var tableViewAdapter: LibraryTableViewAdapter = LibraryTableViewAdapter(tableView: mainView.tableView)
-  private lazy var createFolderModal: LibraryCreateFolderController = {
-    let controller = LibraryCreateFolderController()
-    controller.dismissCallback = { [weak self] in
-      guard let self else { return }
-      return self.fetch()
-    }
-    return controller
-  }()
+
+  public var disposeBag: DisposeBag = DisposeBag()
   
-  public override func loadView() {
-    super.loadView()
-    view = mainView
+  public typealias Reactor = LibraryReactor
+  required init(reactor: Reactor, title: String? = nil) {
+    defer {
+      self.reactor = reactor
+      self.title = title
+    }
+    super.init()
+  }
+  
+  public func bind(reactor: Reactor) {
+    tableViewAdapter.delegate = self
+    
+    self.rx.viewIsAppear
+      .map { _ in .fetchFiles }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    reactor.state
+      .map(\.files)
+      .distinctUntilChanged()
+      .bind(with: self) { owner, files in
+        owner.tableViewAdapter.applySnapshot(files: files)
+      }
+      .disposed(by: disposeBag)
+    
+    reactor.state
+      .map(\.error)
+      .bind(with: self) { owner, error in
+        guard let error else { return }
+        switch error {
+        case .createFolderFailed:
+          print("폴더 생성 실패")
+        case .downloadFileFailed:
+          print("파일 다운로드 실패")
+        case .fetchFilesFailed:
+          print("파일 불러오기 실패 ")
+        case .invalidFileExtension:
+          print("지원하지 않는 확장자")
+        }
+      }
+      .disposed(by: disposeBag)
+  
   }
   
   public override func viewIsAppearing(_ animated: Bool) {
     super.viewIsAppearing(animated)
     configureNavigationItem()
-    fetch()
   }
   
-  public override func viewDidLoad() {
-    super.viewDidLoad()
+  public override func configureUI() {
+    super.configureUI()
     
-    tableViewAdapter.delegate = self
-  }
-  
-  private func fetch() {
-    let fileRepository = FileManagerRepository.shared
-    do {
-      let files = try fileRepository.listFiles()
-      let entities = files.compactMap { $0.todomain() }
-      let data = entities.map { FileItemWrapper($0) }
-      tableViewAdapter.applySnapshot(files: data, animated: false)
-    } catch {
-      
+    view.addSubview(mainView)
+    mainView.snp.makeConstraints {
+      $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+      $0.horizontalEdges.equalToSuperview()
     }
   }
   
   private func configureNavigationItem() {
+    navigationController?.navigationItem.largeTitleDisplayMode = .never
+    navigationController?.navigationBar.tintColor = UIColor.basicBlack
+    
     let add = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(add))
     add.tintColor = UIColor.basicBlack
     let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(search))
@@ -58,6 +87,8 @@ public final class LibraryController: BaseController {
       add,
       search
     ]
+    self.navigationController?.navigationBar.prefersLargeTitles = true
+    self.navigationItem.largeTitleDisplayMode = .always
   }
   
   @objc func search() {
@@ -71,93 +102,68 @@ public final class LibraryController: BaseController {
   }
 }
 
+// MARK: - LibaryTableViewAdapterDelegate+Extension
 extension LibraryController: LibraryTableViewAdapterDelegate {
   func libraryTableView(didUpdateItems itemCount: Int) {
     let hasData = itemCount > 0
-    mainView.updateEmptyView(isHidden: hasData)
+    mainView.tableView.updateEmptyView(isHidden: hasData)
   }
   
-  func libraryTableView(didSelectFileItem file: any FileItemProtocol) {
-    print(file.name)
+  func libraryTableView(didSelectFolderItem file: any FileProtocol) {
+    guard let reactor else { return }
+    guard let path = file.path.removingPercentEncoding else { return }
+    let newReactor = reactor.copyWith(state: .init(directoryPath: path))
+    let libraryController = LibraryController(reactor: newReactor, title: file.name)
+    navigationController?.pushViewController(libraryController, animated: true)
+  }
+  
+  func libraryTableView(didSelectContentItem file: any FileProtocol) {
+    guard let file = file as? ContentFile else { return }
+    if let fileContent = String(data: file.data, encoding: .utf8) {
+      print(fileContent)
+    }
+  }
+  
+  func libraryTableView(didLongPressOnItem file: any FileProtocol) {
+    print("길게 누름")
+    let actionMenuBottomSheetController = LibraryActionMenuBottomSheetController()
+    actionMenuBottomSheetController.delegate = self
+    present(actionMenuBottomSheetController, animated: false)
   }
 }
 
+// MARK: - LibraryOptionsBottomSheetDelegate+Extension
 extension LibraryController: LibraryOptionsBottomSheetDelegate {
   public func presentToDocumentPickerController() {
-    let documentController = UIDocumentPickerViewController(forOpeningContentTypes: [.data], asCopy: true)
+    let documentController = UIDocumentPickerViewController(forOpeningContentTypes: [.text, .pdf], asCopy: true)
+    documentController.allowsMultipleSelection = true
     documentController.delegate = self
     present(documentController, animated: true)
   }
   
   public func presentToCreateFolderController() {
+    guard let reactor else { return }
+    let createFolderModal = LibraryCreateFolderController(directoryPath: reactor.currentState.directoryPath)
     present(createFolderModal, animated: false)
+    
+    createFolderModal.dismissCallback = { [weak self] in
+      self?.reactor?.action.onNext(.fetchFiles)
+    }
   }
 }
 
+// MARK: - LibraryActionMenuBottomSheetDelegate+Extension
+extension LibraryController: LibraryActionMenuBottomSheetDelegate {
+  
+}
+
+// MARK: - UIDocumentPickerDelegate+Extension
 extension LibraryController: UIDocumentPickerDelegate {
   public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-    let fileRepository = FileManagerRepository.shared
-    
-    if let selectedFileURL = urls.first {
-      
-      let fileName = selectedFileURL.lastPathComponent
-      if let encodedString = fileName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-         let url = URL(string: encodedString),
-         let _ = url.lastPathComponent.removingPercentEncoding {
-        
-        if let fileData = try? Data(contentsOf: selectedFileURL) {
-          let type = checkFileType(for: fileData)
-          switch type {
-          case .txt:
-            do {
-              print(selectedFileURL)
-              try fileRepository.saveFile(data: fileData, to: fileName)
-              fetch()
-            } catch FileManagerRepositoryError.fileAlreadyExists {
-              let alertController = UIAlertController(title: nil, message: "현재 디렉토리에 같은 이름의 파일이 존재합니다.", preferredStyle: .alert)
-              let alertAction = UIAlertAction(title: "확인", style: .cancel)
-              alertController.addAction(alertAction)
-              present(alertController, animated: true)
-            } catch FileManagerRepositoryError.writeFailed {
-              let alertController = UIAlertController(title: "파일 불러오기 실패", message: "개발자에게 문의하세요", preferredStyle: .alert)
-              let alertAction = UIAlertAction(title: "확인", style: .cancel)
-              alertController.addAction(alertAction)
-            } catch {
-              let alertController = UIAlertController(title: "알 수 없는 오류", message: "개발자에게 문의하세요", preferredStyle: .alert)
-              let alertAction = UIAlertAction(title: "확인", style: .cancel)
-              alertController.addAction(alertAction)
-            }
-          case .pdf:
-            print("pdf file")
-          case .unknown:
-            print("unkown file")
-          }
-        }
-      }
-    }
+    reactor?.action.onNext(.downloadFiles(urls: urls))
   }
   
   public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
     print("사용자가 취소함")
   }
-}
-
-func checkFileType(for data: Data) -> FileType {
-  if String(data: data, encoding: .utf8) != nil {
-    return .txt
-  }
-  
-  let pdfMagicNumber = Data([0x25, 0x50, 0x44, 0x46, 0x2D]) // %PDF-
-  
-  if data.prefix(pdfMagicNumber.count) == pdfMagicNumber {
-    return .pdf
-  }
-  
-  return .unknown
-}
-
-enum FileType {
-  case pdf
-  case txt
-  case unknown
 }

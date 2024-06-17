@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-private class BottomSheetRowView: BaseControl, RxTouchable, RxPressable, RxBindable {
+public class BottomSheetRowView: BaseControl, RxTouchable, RxPressable, RxBindable {
   private let iconView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFit
@@ -52,7 +52,7 @@ private class BottomSheetRowView: BaseControl, RxTouchable, RxPressable, RxBinda
     }
   }
   
-  func bind() {
+  public func bind() {
     self.rx.controlEvent(.touchDown)
       .bind(with: self) { owner, _ in
         owner.press()
@@ -76,11 +76,11 @@ private class BottomSheetRowView: BaseControl, RxTouchable, RxPressable, RxBinda
       .disposed(by: disposeBag)
   }
   
-  func press() {
+  public func press() {
     self.backgroundColor = .gray100
   }
   
-  func unpress() {
+  public func unpress() {
     self.backgroundColor = .basicWhite
   }
 }

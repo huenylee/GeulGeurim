@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxRelay
 
 public final class FolderCell: PressableCell {
   private let iconView: UIImageView = {
@@ -52,19 +54,36 @@ public final class FolderCell: PressableCell {
     return view
   }()
   
+  public enum TouchEventType {
+    case open(any FileProtocol)
+    case actionMenu(any FileProtocol)
+  }
+  
+  public let touchEventRelay: PublishRelay<TouchEventType> = .init()
+  private var file: (any FileProtocol)?
+  
   public override func prepareForReuse() {
+    super.prepareForReuse()
     titleLabel.text = nil
     createdDateLabel.text = nil
     fileCountLabel.text = nil
   }
 
-  public func configureCell(data: any FileItemProtocol) {
+  public func configureCell(data: any FileProtocol) {
+    file = data
     selectionStyle = .none
     setupUIWithData(data: data)
     setupConstraints()
     
-    touchableClosure = {
-      print("이건 폴더얌~")
+    touchableClosure = { [weak self] type in
+      guard let file = self?.file else { return }
+      
+      switch type {
+      case .long:
+        self?.touchEventRelay.accept(.actionMenu(file))
+      case .short:
+        self?.touchEventRelay.accept(.open(file))
+      }
     }
   }
   
@@ -114,10 +133,10 @@ public final class FolderCell: PressableCell {
     }
   }
   
-  private func setupUIWithData(data: any FileItemProtocol) {
+  private func setupUIWithData(data: any FileProtocol) {
     titleLabel.text = data.name
     createdDateLabel.text = data.createdDate.toString(pattern: "yyyy. MM. dd")
-    guard let folder = data as? FolderItem else { return }
+    guard let folder = data as? FolderFile else { return }
     fileCountLabel.text = "파일 \(folder.subfilesCount)개"
   }
 }

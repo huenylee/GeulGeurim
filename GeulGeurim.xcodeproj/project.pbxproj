@@ -17,14 +17,26 @@
 		5C283D742C0EE8ED005B965A /* RxInputReceivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */; };
 		5C408DFF2C0F711400B57A56 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C408DFE2C0F711400B57A56 /* Date.swift */; };
 		5C408E022C12C3F400B57A56 /* PressableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C408E012C12C3F400B57A56 /* PressableCell.swift */; };
+		5C6E20A42C183318008C1044 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C6E20A32C183318008C1044 /* ReactorKit */; };
+		5C6E20A62C183342008C1044 /* LibraryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20A52C183342008C1044 /* LibraryReactor.swift */; };
+		5C6E20A92C183C54008C1044 /* FileRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20A82C183C54008C1044 /* FileRepositoryProtocol.swift */; };
+		5C6E20AD2C183CEB008C1044 /* CreateFolderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20AC2C183CEB008C1044 /* CreateFolderUseCase.swift */; };
+		5C6E20AF2C184988008C1044 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20AE2C184988008C1044 /* Data+Extension.swift */; };
+		5C6E20B12C1850DC008C1044 /* FetchLibraryFilesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20B02C1850DC008C1044 /* FetchLibraryFilesUseCase.swift */; };
+		5C6E20B32C18512B008C1044 /* FileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20B22C18512B008C1044 /* FileProtocol.swift */; };
+		5C6E20B52C185861008C1044 /* RxViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20B42C185861008C1044 /* RxViewController+Extension.swift */; };
+		5C6E20BB2C186DF4008C1044 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5C6E20BA2C186DF4008C1044 /* Localizable.xcstrings */; };
+		5C6E20BD2C18724F008C1044 /* DownloadFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20BC2C18724F008C1044 /* DownloadFileUseCase.swift */; };
+		5C6F1B1B2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B1A2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift */; };
+		5C6F1B1D2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B1C2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift */; };
 		5C840FE62C05B7DB001131C6 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE52C05B7DB001131C6 /* LibraryView.swift */; };
 		5C840FE82C05B7E1001131C6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE72C05B7E1001131C6 /* SettingView.swift */; };
 		5C840FEA2C05BB2B001131C6 /* ReadNowTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */; };
-		5C840FED2C05BCEA001131C6 /* FolderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FEC2C05BCEA001131C6 /* FolderItem.swift */; };
+		5C840FED2C05BCEA001131C6 /* FolderFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FEC2C05BCEA001131C6 /* FolderFile.swift */; };
 		5C840FEF2C05BE21001131C6 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FEE2C05BE21001131C6 /* ContentCell.swift */; };
 		5C840FF22C05C01B001131C6 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF12C05C01B001131C6 /* NSObject.swift */; };
-		5C840FF42C0737D9001131C6 /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF32C0737D9001131C6 /* ContentItem.swift */; };
-		5C840FF62C0737E5001131C6 /* FileItemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF52C0737E5001131C6 /* FileItemWrapper.swift */; };
+		5C840FF42C0737D9001131C6 /* ContentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF32C0737D9001131C6 /* ContentFile.swift */; };
+		5C840FF62C0737E5001131C6 /* FileWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF52C0737E5001131C6 /* FileWrapper.swift */; };
 		5C840FF82C0B46C9001131C6 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF72C0B46C9001131C6 /* BaseController.swift */; };
 		5C840FFA2C0B57F4001131C6 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF92C0B57F4001131C6 /* BaseView.swift */; };
 		5C840FFC2C0B62F3001131C6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FFB2C0B62F3001131C6 /* EmptyView.swift */; };
@@ -40,6 +52,7 @@
 		5C8DCEF32C0487C80040D720 /* GeulGeurimTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8DCEF22C0487C80040D720 /* GeulGeurimTests.swift */; };
 		5C8DCEFD2C0487C80040D720 /* GeulGeurimUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8DCEFC2C0487C80040D720 /* GeulGeurimUITests.swift */; };
 		5C8DCEFF2C0487C80040D720 /* GeulGeurimUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8DCEFE2C0487C80040D720 /* GeulGeurimUITestsLaunchTests.swift */; };
+		5C905E202C174D7C0005EA8D /* EmptyStateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C905E1F2C174D7C0005EA8D /* EmptyStateTableView.swift */; };
 		5CBD4BDA2C049B5B00E810EF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD4BD92C049B5B00E810EF /* TabBarController.swift */; };
 		5CBD4BDD2C049D3600E810EF /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD4BDC2C049D3600E810EF /* TabBarItemType.swift */; };
 		5CBD4BE22C04FCE200E810EF /* ReadNowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD4BE12C04FCE200E810EF /* ReadNowController.swift */; };
@@ -94,14 +107,27 @@
 		5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxInputReceivable.swift; sourceTree = "<group>"; };
 		5C408DFE2C0F711400B57A56 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5C408E012C12C3F400B57A56 /* PressableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressableCell.swift; sourceTree = "<group>"; };
+		5C6E20A52C183342008C1044 /* LibraryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryReactor.swift; sourceTree = "<group>"; };
+		5C6E20A82C183C54008C1044 /* FileRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRepositoryProtocol.swift; sourceTree = "<group>"; };
+		5C6E20AC2C183CEB008C1044 /* CreateFolderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFolderUseCase.swift; sourceTree = "<group>"; };
+		5C6E20AE2C184988008C1044 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		5C6E20B02C1850DC008C1044 /* FetchLibraryFilesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLibraryFilesUseCase.swift; sourceTree = "<group>"; };
+		5C6E20B22C18512B008C1044 /* FileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProtocol.swift; sourceTree = "<group>"; };
+		5C6E20B42C185861008C1044 /* RxViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxViewController+Extension.swift"; sourceTree = "<group>"; };
+		5C6E20B82C186D2B008C1044 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5C6E20B92C186D32008C1044 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5C6E20BA2C186DF4008C1044 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		5C6E20BC2C18724F008C1044 /* DownloadFileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileUseCase.swift; sourceTree = "<group>"; };
+		5C6F1B1A2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryActionMenuBottomSheetController.swift; sourceTree = "<group>"; };
+		5C6F1B1C2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryActionMenuBottomSheetView.swift; sourceTree = "<group>"; };
 		5C840FE52C05B7DB001131C6 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		5C840FE72C05B7E1001131C6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadNowTableViewAdapter.swift; sourceTree = "<group>"; };
-		5C840FEC2C05BCEA001131C6 /* FolderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderItem.swift; sourceTree = "<group>"; };
+		5C840FEC2C05BCEA001131C6 /* FolderFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderFile.swift; sourceTree = "<group>"; };
 		5C840FEE2C05BE21001131C6 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
 		5C840FF12C05C01B001131C6 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
-		5C840FF32C0737D9001131C6 /* ContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
-		5C840FF52C0737E5001131C6 /* FileItemWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemWrapper.swift; sourceTree = "<group>"; };
+		5C840FF32C0737D9001131C6 /* ContentFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFile.swift; sourceTree = "<group>"; };
+		5C840FF52C0737E5001131C6 /* FileWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWrapper.swift; sourceTree = "<group>"; };
 		5C840FF72C0B46C9001131C6 /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		5C840FF92C0B57F4001131C6 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		5C840FFB2C0B62F3001131C6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -121,6 +147,7 @@
 		5C8DCEF82C0487C80040D720 /* GeulGeurimUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeulGeurimUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8DCEFC2C0487C80040D720 /* GeulGeurimUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeulGeurimUITests.swift; sourceTree = "<group>"; };
 		5C8DCEFE2C0487C80040D720 /* GeulGeurimUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeulGeurimUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5C905E1F2C174D7C0005EA8D /* EmptyStateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateTableView.swift; sourceTree = "<group>"; };
 		5CBD4BD92C049B5B00E810EF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5CBD4BDC2C049D3600E810EF /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		5CBD4BE12C04FCE200E810EF /* ReadNowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadNowController.swift; sourceTree = "<group>"; };
@@ -157,6 +184,7 @@
 				5C0A60522C0D9A9000C2E9B5 /* RxRelay in Frameworks */,
 				5C0A60502C0D9A9000C2E9B5 /* RxCocoa in Frameworks */,
 				5C0A60542C0D9A9000C2E9B5 /* RxSwift in Frameworks */,
+				5C6E20A42C183318008C1044 /* ReactorKit in Frameworks */,
 				5CBD4C142C059BBF00E810EF /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +221,7 @@
 				5CBD4BF02C0509D100E810EF /* LibraryController.swift */,
 				5C840FE52C05B7DB001131C6 /* LibraryView.swift */,
 				5C8410052C0C5CFB001131C6 /* LibraryTableViewAdapter.swift */,
+				5C6E20A52C183342008C1044 /* LibraryReactor.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -208,12 +237,49 @@
 			path = RxProtocols;
 			sourceTree = "<group>";
 		};
+		5C6E20A72C183C46008C1044 /* RepositoryProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				5C6E20A82C183C54008C1044 /* FileRepositoryProtocol.swift */,
+			);
+			path = RepositoryProtocol;
+			sourceTree = "<group>";
+		};
+		5C6E20AA2C183C64008C1044 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				5C6E20AC2C183CEB008C1044 /* CreateFolderUseCase.swift */,
+				5C6E20B02C1850DC008C1044 /* FetchLibraryFilesUseCase.swift */,
+				5C6E20BC2C18724F008C1044 /* DownloadFileUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		5C6E20AB2C183C68008C1044 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				5C840FEC2C05BCEA001131C6 /* FolderFile.swift */,
+				5C840FF32C0737D9001131C6 /* ContentFile.swift */,
+				5C6E20B22C18512B008C1044 /* FileProtocol.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		5C6F1B192C1DFEC100BC7770 /* ActionMenu */ = {
+			isa = PBXGroup;
+			children = (
+				5C6F1B1A2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift */,
+				5C6F1B1C2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift */,
+			);
+			path = ActionMenu;
+			sourceTree = "<group>";
+		};
 		5C840FEB2C05BCDE001131C6 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				5C840FEC2C05BCEA001131C6 /* FolderItem.swift */,
-				5C840FF32C0737D9001131C6 /* ContentItem.swift */,
-				5C840FF52C0737E5001131C6 /* FileItemWrapper.swift */,
+				5C6E20AB2C183C68008C1044 /* Entity */,
+				5C6E20AA2C183C64008C1044 /* UseCase */,
+				5C6E20A72C183C46008C1044 /* RepositoryProtocol */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -223,6 +289,8 @@
 			children = (
 				5C840FF12C05C01B001131C6 /* NSObject.swift */,
 				5C408DFE2C0F711400B57A56 /* Date.swift */,
+				5C6E20AE2C184988008C1044 /* Data+Extension.swift */,
+				5C6E20B42C185861008C1044 /* RxViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -230,10 +298,9 @@
 		5C8410042C0C5CBD001131C6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5C840FFB2C0B62F3001131C6 /* EmptyView.swift */,
-				5C840FFF2C0C545E001131C6 /* EmptyViewRepresnetable.swift */,
 				5C840FEE2C05BE21001131C6 /* ContentCell.swift */,
 				5C8410072C0C5D61001131C6 /* FolderCell.swift */,
+				5C840FF52C0737E5001131C6 /* FileWrapper.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -316,8 +383,27 @@
 				5C8DCEE42C0487C80040D720 /* Assets.xcassets */,
 				5C8DCEE62C0487C80040D720 /* LaunchScreen.storyboard */,
 				5C8DCEE92C0487C80040D720 /* Info.plist */,
+				5C6E20BA2C186DF4008C1044 /* Localizable.xcstrings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		5C905E1B2C1733040005EA8D /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				5C8410092C0C7640001131C6 /* LibraryOptionsBottomSheetController.swift */,
+				5C84100B2C0C787F001131C6 /* LibraryOptionsBottomSheetView.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		5C905E1C2C1733120005EA8D /* CreateFolder */ = {
+			isa = PBXGroup;
+			children = (
+				5C283D6A2C0EE75C005B965A /* LibraryCreateFolderController.swift */,
+				5C283D712C0EE8B2005B965A /* LibraryCreateFolderView.swift */,
+			);
+			path = CreateFolder;
 			sourceTree = "<group>";
 		};
 		5CBD4BDB2C049B6200E810EF /* TabBar */ = {
@@ -344,12 +430,11 @@
 		5CBD4BDF2C04A56400E810EF /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				5C283D6F2C0EE882005B965A /* Root */,
-				5C8410092C0C7640001131C6 /* LibraryOptionsBottomSheetController.swift */,
-				5C84100B2C0C787F001131C6 /* LibraryOptionsBottomSheetView.swift */,
 				5CBD4BF42C0509F400E810EF /* LibraryCoordinator.swift */,
-				5C283D6A2C0EE75C005B965A /* LibraryCreateFolderController.swift */,
-				5C283D712C0EE8B2005B965A /* LibraryCreateFolderView.swift */,
+				5C283D6F2C0EE882005B965A /* Root */,
+				5C905E1C2C1733120005EA8D /* CreateFolder */,
+				5C905E1B2C1733040005EA8D /* Options */,
+				5C6F1B192C1DFEC100BC7770 /* ActionMenu */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -432,6 +517,9 @@
 				5C408E002C12C36C00B57A56 /* RxProtocols */,
 				5CBD4C152C059CDC00E810EF /* Base */,
 				5C408E012C12C3F400B57A56 /* PressableCell.swift */,
+				5C840FFF2C0C545E001131C6 /* EmptyViewRepresnetable.swift */,
+				5C905E1F2C174D7C0005EA8D /* EmptyStateTableView.swift */,
+				5C840FFB2C0B62F3001131C6 /* EmptyView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -457,6 +545,7 @@
 				5C0A604F2C0D9A9000C2E9B5 /* RxCocoa */,
 				5C0A60512C0D9A9000C2E9B5 /* RxRelay */,
 				5C0A60532C0D9A9000C2E9B5 /* RxSwift */,
+				5C6E20A32C183318008C1044 /* ReactorKit */,
 			);
 			productName = GeulGeurim;
 			productReference = 5C8DCED82C0487C70040D720 /* GeulGeurim.app */;
@@ -528,11 +617,14 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
+				ja,
 			);
 			mainGroup = 5C8DCECF2C0487C70040D720;
 			packageReferences = (
 				5CBD4C122C059BBF00E810EF /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5C0A604E2C0D9A9000C2E9B5 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				5C6E20A22C183318008C1044 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 			);
 			productRefGroup = 5C8DCED92C0487C70040D720 /* Products */;
 			projectDirPath = "";
@@ -552,6 +644,7 @@
 			files = (
 				5CBD4C0F2C0583D900E810EF /* Pretendard-Light.ttf in Resources */,
 				5CBD4C0D2C0583D900E810EF /* Pretendard-ExtraBold.ttf in Resources */,
+				5C6E20BB2C186DF4008C1044 /* Localizable.xcstrings in Resources */,
 				5CBD4C0C2C0583D900E810EF /* Pretendard-SemiBold.ttf in Resources */,
 				5CBD4C0A2C0583D900E810EF /* Pretendard-Thin.ttf in Resources */,
 				5C8DCEE82C0487C80040D720 /* LaunchScreen.storyboard in Resources */,
@@ -591,40 +684,51 @@
 				5CBD4BDD2C049D3600E810EF /* TabBarItemType.swift in Sources */,
 				5CD85B4C2C0D93F6004A03E4 /* BaseControl.swift in Sources */,
 				5CBD4BF12C0509D100E810EF /* LibraryController.swift in Sources */,
+				5C6F1B1D2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift in Sources */,
 				5CBD4BDA2C049B5B00E810EF /* TabBarController.swift in Sources */,
 				5CD85B4A2C0D8EDA004A03E4 /* RxBindable.swift in Sources */,
 				5C0A60592C0DDDB700C2E9B5 /* FileDTO.swift in Sources */,
 				5C840FE62C05B7DB001131C6 /* LibraryView.swift in Sources */,
 				5C84100C2C0C787F001131C6 /* LibraryOptionsBottomSheetView.swift in Sources */,
-				5C840FF42C0737D9001131C6 /* ContentItem.swift in Sources */,
+				5C6E20A62C183342008C1044 /* LibraryReactor.swift in Sources */,
+				5C840FF42C0737D9001131C6 /* ContentFile.swift in Sources */,
 				5CBD4BFC2C057FEE00E810EF /* ReadNowView.swift in Sources */,
 				5C408DFF2C0F711400B57A56 /* Date.swift in Sources */,
 				5CBD4BEF2C05092000E810EF /* AppCoordinator.swift in Sources */,
 				5CBD4BE22C04FCE200E810EF /* ReadNowController.swift in Sources */,
 				5C8410062C0C5CFB001131C6 /* LibraryTableViewAdapter.swift in Sources */,
 				5C840FFC2C0B62F3001131C6 /* EmptyView.swift in Sources */,
+				5C6E20B32C18512B008C1044 /* FileProtocol.swift in Sources */,
 				5C8DCEDC2C0487C70040D720 /* AppDelegate.swift in Sources */,
 				5C283D742C0EE8ED005B965A /* RxInputReceivable.swift in Sources */,
 				5CD85B482C0D8D6E004A03E4 /* RxPressable.swift in Sources */,
 				5C283D6B2C0EE75C005B965A /* LibraryCreateFolderController.swift in Sources */,
+				5C6F1B1B2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift in Sources */,
+				5C905E202C174D7C0005EA8D /* EmptyStateTableView.swift in Sources */,
 				5C8410082C0C5D61001131C6 /* FolderCell.swift in Sources */,
 				5C840FE82C05B7E1001131C6 /* SettingView.swift in Sources */,
 				5CBD4BED2C0501A100E810EF /* TabBarCoordinator.swift in Sources */,
+				5C6E20BD2C18724F008C1044 /* DownloadFileUseCase.swift in Sources */,
+				5C6E20B52C185861008C1044 /* RxViewController+Extension.swift in Sources */,
 				5C840FFA2C0B57F4001131C6 /* BaseView.swift in Sources */,
 				5C8DCEDE2C0487C70040D720 /* SceneDelegate.swift in Sources */,
 				5C0A60572C0DCF5600C2E9B5 /* FileManagerRepository.swift in Sources */,
+				5C6E20AF2C184988008C1044 /* Data+Extension.swift in Sources */,
 				5C840FEA2C05BB2B001131C6 /* ReadNowTableViewAdapter.swift in Sources */,
 				5C283D722C0EE8B2005B965A /* LibraryCreateFolderView.swift in Sources */,
+				5C6E20A92C183C54008C1044 /* FileRepositoryProtocol.swift in Sources */,
 				5C840FF82C0B46C9001131C6 /* BaseController.swift in Sources */,
 				5C840FEF2C05BE21001131C6 /* ContentCell.swift in Sources */,
 				5CBD4BE62C04FEA600E810EF /* ReadNowCoordinator.swift in Sources */,
 				5CBD4BF52C0509F400E810EF /* LibraryCoordinator.swift in Sources */,
-				5C840FED2C05BCEA001131C6 /* FolderItem.swift in Sources */,
-				5C840FF62C0737E5001131C6 /* FileItemWrapper.swift in Sources */,
+				5C840FED2C05BCEA001131C6 /* FolderFile.swift in Sources */,
+				5C840FF62C0737E5001131C6 /* FileWrapper.swift in Sources */,
 				5C8410002C0C545E001131C6 /* EmptyViewRepresnetable.swift in Sources */,
+				5C6E20AD2C183CEB008C1044 /* CreateFolderUseCase.swift in Sources */,
 				5CBD4C112C059B6C00E810EF /* Font.swift in Sources */,
 				5CBD4BF32C0509E100E810EF /* SettingController.swift in Sources */,
 				5CBD4BEB2C05002F00E810EF /* BaseCoordinator.swift in Sources */,
+				5C6E20B12C1850DC008C1044 /* FetchLibraryFilesUseCase.swift in Sources */,
 				5CBD4BF72C050A0F00E810EF /* SettingCoordinator.swift in Sources */,
 				5C408E022C12C3F400B57A56 /* PressableCell.swift in Sources */,
 			);
@@ -667,6 +771,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5C8DCEE72C0487C80040D720 /* Base */,
+				5C6E20B82C186D2B008C1044 /* ko */,
+				5C6E20B92C186D32008C1044 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -679,6 +785,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -742,6 +849,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -989,6 +1097,14 @@
 				minimumVersion = 6.7.1;
 			};
 		};
+		5C6E20A22C183318008C1044 /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
 		5CBD4C122C059BBF00E810EF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1014,6 +1130,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5C0A604E2C0D9A9000C2E9B5 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		5C6E20A32C183318008C1044 /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C6E20A22C183318008C1044 /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
 		};
 		5CBD4C132C059BBF00E810EF /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

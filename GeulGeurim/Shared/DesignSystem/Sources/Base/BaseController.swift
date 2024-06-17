@@ -12,7 +12,7 @@ open class BaseController: UIViewController {
   open override func viewIsAppearing(_ animated: Bool) {
     super.viewIsAppearing(animated)
     
-    view.backgroundColor = UIColor.white
+    view.backgroundColor = UIColor.basicWhite
   }
   
   public init() {

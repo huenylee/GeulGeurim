@@ -26,11 +26,12 @@ final class TabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setUpTabBar()
+    setupTabBarItem()
+    setupTabBarAppearance()
   }
   
   /// 탭바 설정 메소드
-  private func setUpTabBar() {
+  private func setupTabBarItem() {
     self.tabBar.tintColor = UIColor.primaryNormal
     
     let navigationControllers = TabBarItemType.allCases.map { item -> UINavigationController in
@@ -46,5 +47,13 @@ final class TabBarController: UITabBarController {
     }
     
     viewControllers = navigationControllers
+  }
+  
+  private func setupTabBarAppearance() {
+    let appearance = UITabBarAppearance()
+    appearance.configureWithOpaqueBackground()
+
+    self.tabBar.standardAppearance = appearance
+    self.tabBar.scrollEdgeAppearance = appearance
   }
 }

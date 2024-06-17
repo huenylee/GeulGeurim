@@ -9,11 +9,11 @@ import UIKit
 
 protocol ReadNowTableViewAdapterDelegate: AnyObject {
   func readNowTableView(didUpdateItems itemCount: Int)
-  func readNowTableView(didSelectFileItem file: FileItemWrapper)
+  func readNowTableView(didSelectFileItem file: FileWrapper)
 }
 
 public final class ReadNowTableViewAdapter: NSObject {
-  typealias DiffableDataSource = UITableViewDiffableDataSource<Int, FileItemWrapper>
+  typealias DiffableDataSource = UITableViewDiffableDataSource<Int, FileWrapper>
   
   private var tableView: UITableView
   private var diffableDataSource: DiffableDataSource?
@@ -36,8 +36,8 @@ public final class ReadNowTableViewAdapter: NSObject {
     })
   }
   
-  public func applySnapshot(files: [FileItemWrapper], animated: Bool = true) {
-    var snapshot = NSDiffableDataSourceSnapshot<Int, FileItemWrapper>()
+  public func applySnapshot(files: [FileWrapper], animated: Bool = true) {
+    var snapshot = NSDiffableDataSourceSnapshot<Int, FileWrapper>()
     snapshot.appendSections([0])
     snapshot.appendItems(files, toSection: 0)
     diffableDataSource?.apply(snapshot, animatingDifferences: animated)

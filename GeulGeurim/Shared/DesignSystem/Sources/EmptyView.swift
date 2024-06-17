@@ -29,7 +29,6 @@ public class EmptyView: BaseView {
   public var message: String? {
     didSet {
       emptyMessageLabel.text = message
-      layoutIfNeeded()
     }
   }
   
