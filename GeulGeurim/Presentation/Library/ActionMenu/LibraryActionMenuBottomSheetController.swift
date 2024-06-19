@@ -8,9 +8,11 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxRelay
 
-public protocol LibraryActionMenuBottomSheetDelegate: AnyObject {
-
+public protocol LibraryActionMenuDelegate: AnyObject {
+  func libraryActionMenu(fileToDelete file: any FileProtocol)
+  func libraryActionMenu(fileToRename file: any FileProtocol)
 }
 
 public final class LibraryActionMenuBottomSheetController: BaseController, RxBindable {
@@ -23,11 +25,12 @@ public final class LibraryActionMenuBottomSheetController: BaseController, RxBin
   
   private var bottomSheetTopConstraint: Constraint?
   private let disposeBag: DisposeBag = DisposeBag()
-  public weak var delegate: LibraryActionMenuBottomSheetDelegate?
+  public weak var delegate: LibraryActionMenuDelegate?
+  private let file: any FileProtocol
   
-  public override init() {
+  public init(file: any FileProtocol) {
+    self.file = file
     super.init()
-    
     self.modalPresentationStyle = .overFullScreen
     bind()
   }
@@ -58,13 +61,14 @@ public final class LibraryActionMenuBottomSheetController: BaseController, RxBin
   
   public func bind() {
     bottomSheetView.touchEventRelay
-      .bind(with: self) { owner, type in
+      .bind(with: self) { [weak self] owner, type in
+        guard let self else { return }
         owner.animateDismiss {
           switch type {
           case .rename:
-            print("이름 변경")
+            owner.delegate?.libraryActionMenu(fileToRename: owner.file)
           case .delete:
-            print("삭제")
+            owner.delegate?.libraryActionMenu(fileToDelete: owner.file)
           }
         }
       }

@@ -126,7 +126,7 @@ extension LibraryController: LibraryTableViewAdapterDelegate {
   
   func libraryTableView(didLongPressOnItem file: any FileProtocol) {
     print("길게 누름")
-    let actionMenuBottomSheetController = LibraryActionMenuBottomSheetController()
+    let actionMenuBottomSheetController = LibraryActionMenuBottomSheetController(file: file)
     actionMenuBottomSheetController.delegate = self
     present(actionMenuBottomSheetController, animated: false)
   }
@@ -153,8 +153,14 @@ extension LibraryController: LibraryOptionsBottomSheetDelegate {
 }
 
 // MARK: - LibraryActionMenuBottomSheetDelegate+Extension
-extension LibraryController: LibraryActionMenuBottomSheetDelegate {
+extension LibraryController: LibraryActionMenuDelegate {
+  public func libraryActionMenu(fileToDelete file: any FileProtocol) {
+    print("파일 삭제: \(file.name)")
+  }
   
+  public func libraryActionMenu(fileToRename file: any FileProtocol) {
+    print("파일 이름 변경: \(file.name)")
+  }
 }
 
 // MARK: - UIDocumentPickerDelegate+Extension
