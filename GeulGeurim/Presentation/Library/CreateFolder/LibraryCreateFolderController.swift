@@ -10,8 +10,8 @@ import SnapKit
 import RxSwift
 
 public final class LibraryCreateFolderController: BaseController, RxBindable {
-  private let modalView: LibraryCreateFolderView = {
-    let view = LibraryCreateFolderView()
+  private let modalView: ActionInputView = {
+    let view = ActionInputView(title: "폴더 생성", buttonTitle: "생성", placeholder: "폴더 이름을 입력하세요.")
     view.backgroundColor = .basicWhite
     view.layer.cornerRadius = 16
     view.layer.maskedCorners = CACornerMask(arrayLiteral: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
