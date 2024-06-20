@@ -1,35 +1,33 @@
 //
-//  LibraryCreateFolderController.swift
+//  LibraryFileRenameController.swift
 //  GeulGeurim
 //
-//  Created by HUNHEE LEE on 4.06.2024.
+//  Created by HUNHEE LEE on 19.06.2024.
 //
 
 import UIKit
 import SnapKit
 import RxSwift
 
-public protocol LibraryCreateFolderDelegate: AnyObject {
-  func libraryCreateFolder(folderToCreate name: String)
+public protocol LibraryFileRenameDelegate: AnyObject {
+  func libraryFileRename(file: any FileProtocol, fileToRename name: String)
 }
 
-public final class LibraryCreateFolderController: BaseController, RxBindable {
+public final class LibraryFileRenameController: BaseController, RxBindable {
   private let modalView: ActionInputView = {
-    let view = ActionInputView(title: "폴더 생성", buttonTitle: "생성", placeholder: "폴더 이름을 입력하세요.")
+    let view = ActionInputView(title: "이름 변경", buttonTitle: "변경", placeholder: "파일 이름을 입력하세요.")
     view.backgroundColor = .basicWhite
     view.layer.cornerRadius = 16
     view.layer.maskedCorners = CACornerMask(arrayLiteral: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
     return view
   }()
-  
   private var modalTopConstraint: Constraint?
   private let disposeBag: DisposeBag = DisposeBag()
+  public weak var delegate: LibraryFileRenameDelegate?
+  public let file: any FileProtocol
   
-  public weak var delegate: LibraryCreateFolderDelegate?
-  public let directoryPath: String
-  
-  public init(directoryPath: String) {
-    self.directoryPath = directoryPath
+  public init(file: any FileProtocol) {
+    self.file = file
     super.init()
     
     self.modalPresentationStyle = .overFullScreen
@@ -37,7 +35,11 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   }
   
   deinit {
-    print("메모리 해제: LibraryCreateFolderController")
+    print("메모리 해제: LibraryFileRenameController")
+  }
+  
+  public override func viewIsAppearing(_ animated: Bool) {
+    super.viewIsAppearing(animated)
   }
   
   public override func viewDidAppear(_ animated: Bool) {
@@ -64,7 +66,7 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
         guard let self else { return }
         owner.animateDismiss { [weak self] in
           guard self != nil else { return }
-          owner.delegate?.libraryCreateFolder(folderToCreate: folderName)
+          owner.delegate?.libraryFileRename(file: owner.file, fileToRename: folderName)
         }
       }
       .disposed(by: disposeBag)
@@ -105,7 +107,7 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   }
 }
 
-extension LibraryCreateFolderController: UIGestureRecognizerDelegate {
+extension LibraryFileRenameController: UIGestureRecognizerDelegate {
   public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
     // 터치가 bottomSheetView 내에서 발생한 경우 false 반환
     return !modalView.frame.contains(touch.location(in: view))

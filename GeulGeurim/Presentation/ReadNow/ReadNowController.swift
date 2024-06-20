@@ -31,7 +31,7 @@ extension ReadNowController: ReadNowTableViewAdapterDelegate {
     mainView.updateEmptyView(isHidden: hasData)
   }
   
-  func readNowTableView(didSelectFileItem file: FileWrapper) {
+  func readNowTableView(didSelectFileItem file: FileDataWrapper) {
   
   }
 }

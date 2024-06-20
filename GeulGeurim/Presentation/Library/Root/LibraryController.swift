@@ -29,15 +29,15 @@ public final class LibraryController: BaseController, ReactorKit.View {
     tableViewAdapter.delegate = self
     
     self.rx.viewIsAppear
-      .map { _ in .fetchFiles }
+      .map { _ in .fetchFiles(animated: false) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
     reactor.state
       .map(\.files)
       .distinctUntilChanged()
-      .bind(with: self) { owner, files in
-        owner.tableViewAdapter.applySnapshot(files: files)
+      .bind(with: self) { owner, listState in
+        owner.tableViewAdapter.applySnapshot(files: listState.files, animated: listState.animated)
       }
       .disposed(by: disposeBag)
     
@@ -54,6 +54,10 @@ public final class LibraryController: BaseController, ReactorKit.View {
           print("파일 불러오기 실패 ")
         case .invalidFileExtension:
           print("지원하지 않는 확장자")
+        case .renameFileFailed:
+          print("이름 변경 실패")
+        case .deleteFileFailed:
+          print("파일 삭제 실패")
         }
       }
       .disposed(by: disposeBag)
@@ -125,8 +129,7 @@ extension LibraryController: LibraryTableViewAdapterDelegate {
   }
   
   func libraryTableView(didLongPressOnItem file: any FileProtocol) {
-    print("길게 누름")
-    let actionMenuBottomSheetController = LibraryActionMenuBottomSheetController()
+    let actionMenuBottomSheetController = LibraryActionMenuBottomSheetController(file: file)
     actionMenuBottomSheetController.delegate = self
     present(actionMenuBottomSheetController, animated: false)
   }
@@ -144,17 +147,37 @@ extension LibraryController: LibraryOptionsBottomSheetDelegate {
   public func presentToCreateFolderController() {
     guard let reactor else { return }
     let createFolderModal = LibraryCreateFolderController(directoryPath: reactor.currentState.directoryPath)
+    createFolderModal.delegate = self
     present(createFolderModal, animated: false)
-    
-    createFolderModal.dismissCallback = { [weak self] in
-      self?.reactor?.action.onNext(.fetchFiles)
-    }
+  }
+}
+
+extension LibraryController: LibraryCreateFolderDelegate {
+  public func libraryCreateFolder(folderToCreate name: String) {
+    guard let reactor else { return }
+    reactor.action.onNext(.createFolder(folderName: name))
   }
 }
 
 // MARK: - LibraryActionMenuBottomSheetDelegate+Extension
-extension LibraryController: LibraryActionMenuBottomSheetDelegate {
+extension LibraryController: LibraryActionMenuDelegate {
+  public func libraryActionMenu(fileToDelete file: any FileProtocol) {
+    guard let reactor else { return }
+    reactor.action.onNext(.deleteFile(at: file.path))
+  }
   
+  public func libraryActionMenu(fileToRename file: any FileProtocol) {
+    let fileRenameController = LibraryFileRenameController(file: file)
+    fileRenameController.delegate = self
+    present(fileRenameController, animated: true)
+  }
+}
+
+extension LibraryController: LibraryFileRenameDelegate {
+  public func libraryFileRename(file: any FileProtocol, fileToRename name: String) {
+    guard let reactor else { return }
+    reactor.action.onNext(.renameFile(at: file.path, newName: name))
+  }
 }
 
 // MARK: - UIDocumentPickerDelegate+Extension

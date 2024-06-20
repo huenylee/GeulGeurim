@@ -12,7 +12,9 @@ public final class LibraryCoordinator: BaseCoordinator {
     let reactor = LibraryReactor(
       createFolderUseCase: CreateFolderUseCase(repository: FileManagerRepository.shared),
       fetchLibraryFilesUseCase: FetchLibraryFilesUseCase(repository: FileManagerRepository.shared), 
-      downloadFileUseCase: DownloadFileUseCase(repository: FileManagerRepository.shared)
+      downloadFileUseCase: DownloadFileUseCase(repository: FileManagerRepository.shared),
+      deleteFileUseCase: DeleteFileUseCase(repository: FileManagerRepository.shared),
+      renameFileUseCase: RenameFileUseCase(repository: FileManagerRepository.shared)
     )
     let libraryController = LibraryController(reactor: reactor, title: "보관함")
     navigationController.pushViewController(libraryController, animated: true)

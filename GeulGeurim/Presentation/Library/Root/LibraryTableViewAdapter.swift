@@ -16,7 +16,7 @@ protocol LibraryTableViewAdapterDelegate: AnyObject {
 }
 
 public final class LibraryTableViewAdapter: NSObject {
-  typealias DiffableDataSource = UITableViewDiffableDataSource<Int, FileWrapper>
+  typealias DiffableDataSource = UITableViewDiffableDataSource<Int, FileDataWrapper>
   
   private var tableView: UITableView
   private var diffableDataSource: DiffableDataSource?
@@ -41,7 +41,7 @@ public final class LibraryTableViewAdapter: NSObject {
     tableView.register(FolderCell.self, forCellReuseIdentifier: FolderCell.identifier)
   }
 
-  private func configureCell(for tableView: UITableView, at indexPath: IndexPath, with itemIdentifier: FileWrapper) -> UITableViewCell? {
+  private func configureCell(for tableView: UITableView, at indexPath: IndexPath, with itemIdentifier: FileDataWrapper) -> UITableViewCell? {
     switch itemIdentifier.file.type {
     case .content:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier, for: indexPath) as? ContentCell else { return nil }
@@ -74,11 +74,11 @@ public final class LibraryTableViewAdapter: NSObject {
     }
   }
   
-  public func applySnapshot(files: [FileWrapper], animated: Bool = true) {
-    var snapshot = NSDiffableDataSourceSnapshot<Int, FileWrapper>()
+  public func applySnapshot(files: [FileDataWrapper], animated: Bool = true) {
+    var snapshot = NSDiffableDataSourceSnapshot<Int, FileDataWrapper>()
     snapshot.appendSections([0])
     snapshot.appendItems(files, toSection: 0)
-    diffableDataSource?.defaultRowAnimation = .automatic
+    diffableDataSource?.defaultRowAnimation = .fade
     diffableDataSource?.apply(snapshot, animatingDifferences: animated)
     delegate?.libraryTableView(didUpdateItems: snapshot.numberOfItems)
   }

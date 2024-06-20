@@ -1,5 +1,5 @@
 //
-//  LibraryCreateFolderView.swift
+//  ActionInputView.swift
 //  GeulGeurim
 //
 //  Created by HUNHEE LEE on 4.06.2024.
@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-public final class LibraryCreateFolderView: BaseView, RxTouchable, RxBindable {
+public final class ActionInputView: BaseView, RxTouchable, RxBindable {
   private let headerView: UIView = UIView()
   
   private let titleLabel: UILabel = {
@@ -21,17 +21,18 @@ public final class LibraryCreateFolderView: BaseView, RxTouchable, RxBindable {
     return label
   }()
   
-  private let createButton: UIButton = {
-    let label = UIButton()
+  private lazy var createButton: UIButton = {
+    let button = UIButton()
     var config = UIButton.Configuration.plain()
-    var titleAttr = AttributedString.init("생성")
+    var titleAttr = AttributedString.init(buttonTitle)
     titleAttr.font = Font.T3_SemiBold
     config.attributedTitle = titleAttr
     config.baseForegroundColor = .primaryNormal
     config.titlePadding = 0
-    label.configuration = config
-    return label
+    button.configuration = config
+    return button
   }()
+  private let buttonTitle: String
   
   private let dividerView: UIView = {
     let view = UIView()
@@ -52,9 +53,16 @@ public final class LibraryCreateFolderView: BaseView, RxTouchable, RxBindable {
   
   private let disposeBag: DisposeBag = DisposeBag()
   
-  override public init(frame: CGRect) {
-    super.init(frame: frame)
+  public init(
+    title: String,
+    buttonTitle: String,
+    placeholder: String? = nil
+  ) {
+    self.titleLabel.text = title
+    self.textField.placeholder = placeholder
+    self.buttonTitle = buttonTitle
     
+    super.init(frame: .zero)
     bind()
   }
   

@@ -13,7 +13,7 @@
 		5C0A60572C0DCF5600C2E9B5 /* FileManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0A60562C0DCF5600C2E9B5 /* FileManagerRepository.swift */; };
 		5C0A60592C0DDDB700C2E9B5 /* FileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0A60582C0DDDB700C2E9B5 /* FileDTO.swift */; };
 		5C283D6B2C0EE75C005B965A /* LibraryCreateFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C283D6A2C0EE75C005B965A /* LibraryCreateFolderController.swift */; };
-		5C283D722C0EE8B2005B965A /* LibraryCreateFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C283D712C0EE8B2005B965A /* LibraryCreateFolderView.swift */; };
+		5C283D722C0EE8B2005B965A /* ActionInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C283D712C0EE8B2005B965A /* ActionInputView.swift */; };
 		5C283D742C0EE8ED005B965A /* RxInputReceivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */; };
 		5C408DFF2C0F711400B57A56 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C408DFE2C0F711400B57A56 /* Date.swift */; };
 		5C408E022C12C3F400B57A56 /* PressableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C408E012C12C3F400B57A56 /* PressableCell.swift */; };
@@ -29,6 +29,9 @@
 		5C6E20BD2C18724F008C1044 /* DownloadFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E20BC2C18724F008C1044 /* DownloadFileUseCase.swift */; };
 		5C6F1B1B2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B1A2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift */; };
 		5C6F1B1D2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B1C2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift */; };
+		5C6F1B222C227D4600BC7770 /* LibraryFileRenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B212C227D4600BC7770 /* LibraryFileRenameController.swift */; };
+		5C6F1B242C22EBCD00BC7770 /* RenameFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B232C22EBCD00BC7770 /* RenameFileUseCase.swift */; };
+		5C6F1B262C22ED5700BC7770 /* DeleteFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B252C22ED5700BC7770 /* DeleteFileUseCase.swift */; };
 		5C840FE62C05B7DB001131C6 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE52C05B7DB001131C6 /* LibraryView.swift */; };
 		5C840FE82C05B7E1001131C6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE72C05B7E1001131C6 /* SettingView.swift */; };
 		5C840FEA2C05BB2B001131C6 /* ReadNowTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */; };
@@ -36,7 +39,7 @@
 		5C840FEF2C05BE21001131C6 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FEE2C05BE21001131C6 /* ContentCell.swift */; };
 		5C840FF22C05C01B001131C6 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF12C05C01B001131C6 /* NSObject.swift */; };
 		5C840FF42C0737D9001131C6 /* ContentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF32C0737D9001131C6 /* ContentFile.swift */; };
-		5C840FF62C0737E5001131C6 /* FileWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF52C0737E5001131C6 /* FileWrapper.swift */; };
+		5C840FF62C0737E5001131C6 /* FileDataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF52C0737E5001131C6 /* FileDataWrapper.swift */; };
 		5C840FF82C0B46C9001131C6 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF72C0B46C9001131C6 /* BaseController.swift */; };
 		5C840FFA2C0B57F4001131C6 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FF92C0B57F4001131C6 /* BaseView.swift */; };
 		5C840FFC2C0B62F3001131C6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FFB2C0B62F3001131C6 /* EmptyView.swift */; };
@@ -103,7 +106,7 @@
 		5C0A60562C0DCF5600C2E9B5 /* FileManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerRepository.swift; sourceTree = "<group>"; };
 		5C0A60582C0DDDB700C2E9B5 /* FileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDTO.swift; sourceTree = "<group>"; };
 		5C283D6A2C0EE75C005B965A /* LibraryCreateFolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCreateFolderController.swift; sourceTree = "<group>"; };
-		5C283D712C0EE8B2005B965A /* LibraryCreateFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCreateFolderView.swift; sourceTree = "<group>"; };
+		5C283D712C0EE8B2005B965A /* ActionInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionInputView.swift; sourceTree = "<group>"; };
 		5C283D732C0EE8ED005B965A /* RxInputReceivable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxInputReceivable.swift; sourceTree = "<group>"; };
 		5C408DFE2C0F711400B57A56 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5C408E012C12C3F400B57A56 /* PressableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressableCell.swift; sourceTree = "<group>"; };
@@ -120,6 +123,9 @@
 		5C6E20BC2C18724F008C1044 /* DownloadFileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileUseCase.swift; sourceTree = "<group>"; };
 		5C6F1B1A2C1DFEDE00BC7770 /* LibraryActionMenuBottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryActionMenuBottomSheetController.swift; sourceTree = "<group>"; };
 		5C6F1B1C2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryActionMenuBottomSheetView.swift; sourceTree = "<group>"; };
+		5C6F1B212C227D4600BC7770 /* LibraryFileRenameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryFileRenameController.swift; sourceTree = "<group>"; };
+		5C6F1B232C22EBCD00BC7770 /* RenameFileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameFileUseCase.swift; sourceTree = "<group>"; };
+		5C6F1B252C22ED5700BC7770 /* DeleteFileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFileUseCase.swift; sourceTree = "<group>"; };
 		5C840FE52C05B7DB001131C6 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		5C840FE72C05B7E1001131C6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadNowTableViewAdapter.swift; sourceTree = "<group>"; };
@@ -127,7 +133,7 @@
 		5C840FEE2C05BE21001131C6 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
 		5C840FF12C05C01B001131C6 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		5C840FF32C0737D9001131C6 /* ContentFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFile.swift; sourceTree = "<group>"; };
-		5C840FF52C0737E5001131C6 /* FileWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWrapper.swift; sourceTree = "<group>"; };
+		5C840FF52C0737E5001131C6 /* FileDataWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataWrapper.swift; sourceTree = "<group>"; };
 		5C840FF72C0B46C9001131C6 /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		5C840FF92C0B57F4001131C6 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		5C840FFB2C0B62F3001131C6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -251,6 +257,8 @@
 				5C6E20AC2C183CEB008C1044 /* CreateFolderUseCase.swift */,
 				5C6E20B02C1850DC008C1044 /* FetchLibraryFilesUseCase.swift */,
 				5C6E20BC2C18724F008C1044 /* DownloadFileUseCase.swift */,
+				5C6F1B232C22EBCD00BC7770 /* RenameFileUseCase.swift */,
+				5C6F1B252C22ED5700BC7770 /* DeleteFileUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -272,6 +280,14 @@
 				5C6F1B1C2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift */,
 			);
 			path = ActionMenu;
+			sourceTree = "<group>";
+		};
+		5C6F1B202C227D1E00BC7770 /* FileRename */ = {
+			isa = PBXGroup;
+			children = (
+				5C6F1B212C227D4600BC7770 /* LibraryFileRenameController.swift */,
+			);
+			path = FileRename;
 			sourceTree = "<group>";
 		};
 		5C840FEB2C05BCDE001131C6 /* Domain */ = {
@@ -300,7 +316,8 @@
 			children = (
 				5C840FEE2C05BE21001131C6 /* ContentCell.swift */,
 				5C8410072C0C5D61001131C6 /* FolderCell.swift */,
-				5C840FF52C0737E5001131C6 /* FileWrapper.swift */,
+				5C840FF52C0737E5001131C6 /* FileDataWrapper.swift */,
+				5C283D712C0EE8B2005B965A /* ActionInputView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -401,7 +418,6 @@
 			isa = PBXGroup;
 			children = (
 				5C283D6A2C0EE75C005B965A /* LibraryCreateFolderController.swift */,
-				5C283D712C0EE8B2005B965A /* LibraryCreateFolderView.swift */,
 			);
 			path = CreateFolder;
 			sourceTree = "<group>";
@@ -432,9 +448,10 @@
 			children = (
 				5CBD4BF42C0509F400E810EF /* LibraryCoordinator.swift */,
 				5C283D6F2C0EE882005B965A /* Root */,
-				5C905E1C2C1733120005EA8D /* CreateFolder */,
 				5C905E1B2C1733040005EA8D /* Options */,
+				5C905E1C2C1733120005EA8D /* CreateFolder */,
 				5C6F1B192C1DFEC100BC7770 /* ActionMenu */,
+				5C6F1B202C227D1E00BC7770 /* FileRename */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -684,6 +701,7 @@
 				5CBD4BDD2C049D3600E810EF /* TabBarItemType.swift in Sources */,
 				5CD85B4C2C0D93F6004A03E4 /* BaseControl.swift in Sources */,
 				5CBD4BF12C0509D100E810EF /* LibraryController.swift in Sources */,
+				5C6F1B262C22ED5700BC7770 /* DeleteFileUseCase.swift in Sources */,
 				5C6F1B1D2C1DFF3700BC7770 /* LibraryActionMenuBottomSheetView.swift in Sources */,
 				5CBD4BDA2C049B5B00E810EF /* TabBarController.swift in Sources */,
 				5CD85B4A2C0D8EDA004A03E4 /* RxBindable.swift in Sources */,
@@ -709,20 +727,22 @@
 				5C840FE82C05B7E1001131C6 /* SettingView.swift in Sources */,
 				5CBD4BED2C0501A100E810EF /* TabBarCoordinator.swift in Sources */,
 				5C6E20BD2C18724F008C1044 /* DownloadFileUseCase.swift in Sources */,
+				5C6F1B222C227D4600BC7770 /* LibraryFileRenameController.swift in Sources */,
 				5C6E20B52C185861008C1044 /* RxViewController+Extension.swift in Sources */,
 				5C840FFA2C0B57F4001131C6 /* BaseView.swift in Sources */,
 				5C8DCEDE2C0487C70040D720 /* SceneDelegate.swift in Sources */,
 				5C0A60572C0DCF5600C2E9B5 /* FileManagerRepository.swift in Sources */,
 				5C6E20AF2C184988008C1044 /* Data+Extension.swift in Sources */,
 				5C840FEA2C05BB2B001131C6 /* ReadNowTableViewAdapter.swift in Sources */,
-				5C283D722C0EE8B2005B965A /* LibraryCreateFolderView.swift in Sources */,
+				5C283D722C0EE8B2005B965A /* ActionInputView.swift in Sources */,
 				5C6E20A92C183C54008C1044 /* FileRepositoryProtocol.swift in Sources */,
 				5C840FF82C0B46C9001131C6 /* BaseController.swift in Sources */,
 				5C840FEF2C05BE21001131C6 /* ContentCell.swift in Sources */,
 				5CBD4BE62C04FEA600E810EF /* ReadNowCoordinator.swift in Sources */,
 				5CBD4BF52C0509F400E810EF /* LibraryCoordinator.swift in Sources */,
+				5C6F1B242C22EBCD00BC7770 /* RenameFileUseCase.swift in Sources */,
 				5C840FED2C05BCEA001131C6 /* FolderFile.swift in Sources */,
-				5C840FF62C0737E5001131C6 /* FileWrapper.swift in Sources */,
+				5C840FF62C0737E5001131C6 /* FileDataWrapper.swift in Sources */,
 				5C8410002C0C545E001131C6 /* EmptyViewRepresnetable.swift in Sources */,
 				5C6E20AD2C183CEB008C1044 /* CreateFolderUseCase.swift in Sources */,
 				5CBD4C112C059B6C00E810EF /* Font.swift in Sources */,

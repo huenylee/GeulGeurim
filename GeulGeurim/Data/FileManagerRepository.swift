@@ -17,7 +17,8 @@ public struct FileManagerRepository: FileRepositoryProtocol {
   
   public func createDirectory(name: String, at path: String = "") throws {
     guard let path = path.removingPercentEncoding,
-          let url = URL(string: path) else { throw FileManagerRepositoryError.urlEncodingFailed }
+          let url = URL(string: path) else {
+      throw FileManagerRepositoryError.urlEncodingFailed }
     let newDirectory = url.appendingPathComponent(name)
     
     if fileManager.fileExists(atPath: newDirectory.path) {
@@ -31,8 +32,10 @@ public struct FileManagerRepository: FileRepositoryProtocol {
   }
   
   public func saveFile(file: Data, at path: String) throws {
-    guard let url = URL(string: path) else { throw FileManagerRepositoryError.urlEncodingFailed }
-
+    guard let url = URL(string: path) else {
+      throw FileManagerRepositoryError.urlEncodingFailed
+    }
+    
     if fileManager.fileExists(atPath: url.path) {
       throw FileManagerRepositoryError.fileAlreadyExists
     }
@@ -44,21 +47,33 @@ public struct FileManagerRepository: FileRepositoryProtocol {
     }
   }
   
-  public func readFile(from fileName: String) throws -> Data {
-    let fileURL = FileManagerRepository.baseDirectory.appendingPathComponent(fileName)
+  public func deleteFile(at path: String) throws {
+    guard let url = URL(string: path) else {
+      throw FileManagerRepositoryError.urlEncodingFailed
+    }
+
     do {
-      return try Data(contentsOf: fileURL)
+      try fileManager.removeItem(at: url)
     } catch {
-      throw FileManagerRepositoryError.readFailed(error: error)
+      throw FileManagerRepositoryError.deleteFailed(error: error)
     }
   }
   
-  public func deleteFile(at fileName: String) throws {
-    let fileURL = FileManagerRepository.baseDirectory.appendingPathComponent(fileName)
+  public func renameFile(at path: String, newName: String) throws {
+    guard let url = URL(string: path) else {
+      throw FileManagerRepositoryError.urlEncodingFailed
+    }
+    let fileExtension = url.pathExtension
+    let newURL = url.deletingLastPathComponent().appendingPathComponent(newName).appendingPathExtension(fileExtension)
+    
+    if fileManager.fileExists(atPath: newURL.path) {
+      throw FileManagerRepositoryError.fileAlreadyExists
+    }
+    
     do {
-      try fileManager.removeItem(at: fileURL)
+      try fileManager.moveItem(at: url, to: newURL)
     } catch {
-      throw FileManagerRepositoryError.deleteFailed(error: error)
+      throw FileManagerRepositoryError.renameFailed(error: error)
     }
   }
   
@@ -70,16 +85,16 @@ public struct FileManagerRepository: FileRepositoryProtocol {
       
       return try fileURLs.map { url in
         let resourceValues = try url.resourceValues(forKeys: [.isDirectoryKey, .fileSizeKey, .creationDateKey, .contentModificationDateKey, .pathKey, .canonicalPathKey])
-
+        
         var numberOfItems: Int? = nil
         if resourceValues.isDirectory ?? false {
           let subItems = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
           numberOfItems = subItems.count
-        } 
+        }
         
         var fileData: Data?
         if let isDirectory = resourceValues.isDirectory,
-          !isDirectory {
+           !isDirectory {
           fileData = try Data(contentsOf: url)
         }
         
@@ -107,10 +122,10 @@ public enum FileManagerRepositoryError: Error {
   case fileDoesNotExist(fileName: String)
   case createDirectoryFailed(error: Error)
   case writeFailed(error: Error)
-  case readFailed(error: Error)
   case deleteFailed(error: Error)
   case listFilesFailed(error: Error)
   case urlEncodingFailed
+  case renameFailed(error: Error)
   
   public var localizedDescription: String {
     switch self {
@@ -124,14 +139,14 @@ public enum FileManagerRepositoryError: Error {
       return "Failed to create directory: \(error.localizedDescription)"
     case let .writeFailed(error):
       return "Failed to write data to file: \(error.localizedDescription)"
-    case let .readFailed(error):
-      return "Failed to read data from file: \(error.localizedDescription)"
     case let .deleteFailed(error):
       return "Failed to delete file: \(error.localizedDescription)"
     case let .listFilesFailed(error):
       return "Failed to list files: \(error.localizedDescription)"
     case .urlEncodingFailed:
       return "URL encoding failed for an unknown reason."
+    case .renameFailed(error: let error):
+      return "Failed to rename file: \(error.localizedDescription)"
     }
   }
 }

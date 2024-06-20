@@ -1,5 +1,5 @@
 //
-//  FileWrapper.swift
+//  FileDataWrapper.swift
 //  GeulGeurim
 //
 //  Created by HUNHEE LEE on 29.05.2024.
@@ -13,7 +13,7 @@ import Foundation
 ///
 /// __file__: FileProtocol을 준수하는 객체
 ///
-public struct FileWrapper: Hashable {
+public struct FileDataWrapper: Hashable {
   private let _hash: (inout Hasher) -> Void
   private let _equals: (Any) -> Bool
   let file: any FileProtocol
@@ -33,7 +33,7 @@ public struct FileWrapper: Hashable {
     _hash(&hasher)
   }
   
-  public static func == (lhs: FileWrapper, rhs: FileWrapper) -> Bool {
+  public static func == (lhs: FileDataWrapper, rhs: FileDataWrapper) -> Bool {
     lhs._equals(rhs.file)
   }
 }
