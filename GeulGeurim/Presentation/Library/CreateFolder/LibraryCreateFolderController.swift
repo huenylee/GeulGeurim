@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import RxSwift
 
+public protocol LibraryCreateFolderDelegate: AnyObject {
+  func libraryCreateFolder(folderToCreate name: String)
+}
+
 public final class LibraryCreateFolderController: BaseController, RxBindable {
   private let modalView: ActionInputView = {
     let view = ActionInputView(title: "폴더 생성", buttonTitle: "생성", placeholder: "폴더 이름을 입력하세요.")
@@ -21,7 +25,7 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   private var modalTopConstraint: Constraint?
   private let disposeBag: DisposeBag = DisposeBag()
   
-  public var dismissCallback: (() -> ())?
+  public weak var delegate: LibraryCreateFolderDelegate?
   public let directoryPath: String
   
   public init(directoryPath: String) {
@@ -32,13 +36,13 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
     bind()
   }
   
-  public override func viewIsAppearing(_ animated: Bool) {
-    super.viewIsAppearing(animated)
-    modalView.textField.becomeFirstResponder()
+  deinit {
+    print("메모리 해제: LibraryCreateFolderController")
   }
   
   public override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    modalView.textField.becomeFirstResponder()
     animatePresentation()
   }
   
@@ -56,15 +60,11 @@ public final class LibraryCreateFolderController: BaseController, RxBindable {
   
   public func bind() {
     modalView.touchEventRelay
-      .bind(with: self) { owner, folderName in
-        let fileRepository = FileManagerRepository.shared
-        do {
-          try fileRepository.createDirectory(name: folderName, at: owner.directoryPath)
-          owner.animateDismiss(completion: owner.dismissCallback)
-        } catch FileManagerRepositoryError.directoryAlreadyExists {
-          print("이미 같은거 있어~")
-        } catch {
-          print("뭔진 모르겠지만 안됨")
+      .bind(with: self) { [weak self] owner, folderName in
+        guard let self else { return }
+        owner.animateDismiss { [weak self] in
+          guard self != nil else { return }
+          owner.delegate?.libraryCreateFolder(folderToCreate: folderName)
         }
       }
       .disposed(by: disposeBag)

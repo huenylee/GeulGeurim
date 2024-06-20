@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import RxSwift
 
+public protocol LibraryFileRenameDelegate: AnyObject {
+  func libraryFileRename(file: any FileProtocol, fileToRename name: String)
+}
+
 public final class LibraryFileRenameController: BaseController, RxBindable {
   private let modalView: ActionInputView = {
     let view = ActionInputView(title: "이름 변경", buttonTitle: "변경", placeholder: "파일 이름을 입력하세요.")
@@ -19,20 +23,28 @@ public final class LibraryFileRenameController: BaseController, RxBindable {
   }()
   private var modalTopConstraint: Constraint?
   private let disposeBag: DisposeBag = DisposeBag()
+  public weak var delegate: LibraryFileRenameDelegate?
+  public let file: any FileProtocol
   
-  public override init() {
+  public init(file: any FileProtocol) {
+    self.file = file
     super.init()
     
     self.modalPresentationStyle = .overFullScreen
+    bind()
+  }
+  
+  deinit {
+    print("메모리 해제: LibraryFileRenameController")
   }
   
   public override func viewIsAppearing(_ animated: Bool) {
     super.viewIsAppearing(animated)
-    modalView.textField.becomeFirstResponder()
   }
   
   public override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    modalView.textField.becomeFirstResponder()
     animatePresentation()
   }
   
@@ -49,7 +61,15 @@ public final class LibraryFileRenameController: BaseController, RxBindable {
   }
   
   public func bind() {
-
+    modalView.touchEventRelay
+      .bind(with: self) { [weak self] owner, folderName in
+        guard let self else { return }
+        owner.animateDismiss { [weak self] in
+          guard self != nil else { return }
+          owner.delegate?.libraryFileRename(file: owner.file, fileToRename: folderName)
+        }
+      }
+      .disposed(by: disposeBag)
   }
   
   private func animatePresentation() {

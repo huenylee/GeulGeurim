@@ -21,10 +21,10 @@ public final class ActionInputView: BaseView, RxTouchable, RxBindable {
     return label
   }()
   
-  private let createButton: UIButton = {
+  private lazy var createButton: UIButton = {
     let button = UIButton()
     var config = UIButton.Configuration.plain()
-    var titleAttr = AttributedString.init("생성")
+    var titleAttr = AttributedString.init(buttonTitle)
     titleAttr.font = Font.T3_SemiBold
     config.attributedTitle = titleAttr
     config.baseForegroundColor = .primaryNormal

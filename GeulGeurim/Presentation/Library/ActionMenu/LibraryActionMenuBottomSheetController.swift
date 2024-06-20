@@ -35,6 +35,10 @@ public final class LibraryActionMenuBottomSheetController: BaseController, RxBin
     bind()
   }
   
+  deinit {
+    print("메모리 해제: LibraryActionMenuBottomSheetController")
+  }
+  
   public override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -63,7 +67,8 @@ public final class LibraryActionMenuBottomSheetController: BaseController, RxBin
     bottomSheetView.touchEventRelay
       .bind(with: self) { [weak self] owner, type in
         guard let self else { return }
-        owner.animateDismiss {
+        owner.animateDismiss { [weak self] in
+          guard self != nil else { return }
           switch type {
           case .rename:
             owner.delegate?.libraryActionMenu(fileToRename: owner.file)
