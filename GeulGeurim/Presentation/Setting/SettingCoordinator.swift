@@ -8,7 +8,7 @@
 import UIKit
 
 public final class SettingCoordinator: BaseCoordinator {
-  public override func start() {
+  public func start() {
     let settingController = SettingController()
     navigationController.pushViewController(settingController, animated: true)
   }

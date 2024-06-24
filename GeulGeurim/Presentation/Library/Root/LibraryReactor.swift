@@ -99,13 +99,12 @@ extension LibraryReactor {
     case .createFolder(let folderName):
       do {
         try createFolderUseCase.execute(name: folderName, at: currentPath)
-        Observable.just(Action.fetchFiles(animated: true))
-          .observe(on: MainScheduler.asyncInstance)
-          .subscribe { [weak self] action in
-            self?.action.onNext(action)
-          }
-          .disposed(by: disposeBag)
-        return .empty()
+        return Observable.just(Action.fetchFiles(animated: true))
+            .observe(on: MainScheduler.asyncInstance)
+            .do(onNext: { [weak self] action in
+                self?.action.onNext(action)
+            })
+            .flatMap { _ in Observable<Mutation>.empty() }
       } catch {
         return .just(.setError(LibraryError.createFolderFailed))
       }
@@ -151,26 +150,24 @@ extension LibraryReactor {
     case .renameFile(let at, let newName):
       do {
         try renameFileUseCase.execute(name: newName, at: at)
-        Observable.just(Action.fetchFiles(animated: true))
-                    .observe(on: MainScheduler.asyncInstance)
-                    .subscribe(onNext: { [weak self] action in
-                        self?.action.onNext(action)
-                    })
-                    .disposed(by: disposeBag)
-        return .empty()
+        return Observable.just(Action.fetchFiles(animated: true))
+            .observe(on: MainScheduler.asyncInstance)
+            .do(onNext: { [weak self] action in
+                self?.action.onNext(action)
+            })
+            .flatMap { _ in Observable<Mutation>.empty() }
       } catch {
         return .just(.setError(.renameFileFailed))
       }
     case .deleteFile(let at):
       do {
         try deleteFileUseCase.execute(at: at)
-        Observable.just(Action.deleteFile(at: at))
-          .observe(on: MainScheduler.asyncInstance)
-          .subscribe { [weak self] action in
-            self?.action.onNext(action)
-          }
-          .disposed(by: disposeBag)
-        return .empty()
+        return Observable.just(Action.fetchFiles(animated: true))
+            .observe(on: MainScheduler.asyncInstance)
+            .do(onNext: { [weak self] action in
+                self?.action.onNext(action)
+            })
+            .flatMap { _ in Observable<Mutation>.empty() }
       } catch {
         return .just(.setError(.deleteFileFailed))
       }
