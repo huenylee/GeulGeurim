@@ -29,7 +29,7 @@ public extension FileInfo {
       guard let type = ContentFileType(rawValue: fileExtension) else { return nil }
       guard let fileSize else { return nil }
       guard let data else { return nil }
-      return ContentFile(name: name, createdDate: creationDate, fileSize: fileSize, type: .content(type), data: data, path: path)
+      return ContentFile(name: name, createdDate: creationDate, fileSize: fileSize, type: .content(type), content: String(data: data, encoding: .utf8) ?? "", path: path)
     }
   }
 }

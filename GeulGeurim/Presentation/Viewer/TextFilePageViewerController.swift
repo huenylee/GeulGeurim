@@ -17,8 +17,7 @@ public final class TextFilePageViewerController: UIPageViewController, UIPageVie
   public var content: String? {
     didSet {
       guard let content else { return }
-      let modifiedText = replaceNewlinePatterns(in: content)
-      pages = paginateTextForUILabel(modifiedText, config: config)
+      pages = paginateTextForUILabel(content, config: config)
       setViewControllers([viewControllerForPage(at: 0)], direction: .forward, animated: false, completion: nil)
     }
   }
@@ -99,16 +98,6 @@ public final class TextFilePageViewerController: UIPageViewController, UIPageVie
     }
     
     return pages
-  }
-  
-  private func replaceNewlinePatterns(in text: String) -> String {
-    let mtext = text.replacingOccurrences(of: "\n\n", with: "\n\n ")
-    let pattern = "(?<!\n)\n(?!\n)"
-    let regex = try! NSRegularExpression(pattern: pattern, options: [])
-    let range = NSRange(location: 0, length: text.utf16.count)
-    let modifiedText = regex.stringByReplacingMatches(in: mtext, options: [], range: range, withTemplate: "\n\n")
-    
-    return modifiedText
   }
 }
 

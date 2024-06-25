@@ -40,6 +40,7 @@
 		5C6F1B222C227D4600BC7770 /* LibraryFileRenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B212C227D4600BC7770 /* LibraryFileRenameController.swift */; };
 		5C6F1B242C22EBCD00BC7770 /* RenameFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B232C22EBCD00BC7770 /* RenameFileUseCase.swift */; };
 		5C6F1B262C22ED5700BC7770 /* DeleteFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F1B252C22ED5700BC7770 /* DeleteFileUseCase.swift */; };
+		5C6FEF0A2C3453EC005D6869 /* ContentFile+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6FEF092C3453EC005D6869 /* ContentFile+Extension.swift */; };
 		5C840FE62C05B7DB001131C6 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE52C05B7DB001131C6 /* LibraryView.swift */; };
 		5C840FE82C05B7E1001131C6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE72C05B7E1001131C6 /* SettingView.swift */; };
 		5C840FEA2C05BB2B001131C6 /* ReadNowTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */; };
@@ -142,6 +143,7 @@
 		5C6F1B212C227D4600BC7770 /* LibraryFileRenameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryFileRenameController.swift; sourceTree = "<group>"; };
 		5C6F1B232C22EBCD00BC7770 /* RenameFileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameFileUseCase.swift; sourceTree = "<group>"; };
 		5C6F1B252C22ED5700BC7770 /* DeleteFileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFileUseCase.swift; sourceTree = "<group>"; };
+		5C6FEF092C3453EC005D6869 /* ContentFile+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentFile+Extension.swift"; sourceTree = "<group>"; };
 		5C840FE52C05B7DB001131C6 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		5C840FE72C05B7E1001131C6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		5C840FE92C05BB2B001131C6 /* ReadNowTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadNowTableViewAdapter.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				5C2C90462C292DBF000E3958 /* TextFileViewerOverlayToolbar.swift */,
 				5C2C90482C2AA066000E3958 /* TextFileViewerOverlayNavigator.swift */,
 				5C2C904A2C2D056B000E3958 /* TextFileViewerReactor.swift */,
+				5C6FEF092C3453EC005D6869 /* ContentFile+Extension.swift */,
 			);
 			path = Viewer;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				5C408DFF2C0F711400B57A56 /* Date.swift in Sources */,
 				5CBD4BEF2C05092000E810EF /* AppCoordinator.swift in Sources */,
 				5C2C90452C251C6E000E3958 /* TextFilePageViewerView.swift in Sources */,
+				5C6FEF0A2C3453EC005D6869 /* ContentFile+Extension.swift in Sources */,
 				5CBD4BE22C04FCE200E810EF /* ReadNowController.swift in Sources */,
 				5C8410062C0C5CFB001131C6 /* LibraryTableViewAdapter.swift in Sources */,
 				5C840FFC2C0B62F3001131C6 /* EmptyView.swift in Sources */,
