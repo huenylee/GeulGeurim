@@ -132,7 +132,7 @@ public final class TextFileViewerController: BaseController, ReactorKit.View {
     view.addSubview(pageViewer.view)
     
     pageViewer.delegate = self
-    pageViewer.content = String(data: file.data, encoding: .utf8)
+    pageViewer.content = file.formattedContent
   }
   
   private func setScrollViewer(file: ContentFile) {

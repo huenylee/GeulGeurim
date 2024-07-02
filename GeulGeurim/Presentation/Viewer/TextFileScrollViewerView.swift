@@ -62,7 +62,7 @@ public final class TextFileScrollViewerView: BaseView {
       .foregroundColor: config.textColor,
       .paragraphStyle: paragraphStyle
     ]
-    let text = String(data: file.data, encoding: .utf8) ?? ""
+    let text = file.formattedContent
     
     textView.attributedText = NSAttributedString(string: text, attributes: attributes)
   }
