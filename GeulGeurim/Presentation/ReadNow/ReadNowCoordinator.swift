@@ -8,7 +8,7 @@
 import UIKit
 
 public final class ReadNowCoordinator: BaseCoordinator {
-  public override func start() {
+  public func start() {
     let readNowController = ReadNowController()
     navigationController.pushViewController(readNowController, animated: true)
   }

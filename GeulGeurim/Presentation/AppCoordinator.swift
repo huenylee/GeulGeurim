@@ -15,7 +15,7 @@ public final class AppCoordinator: BaseCoordinator {
     super.init(navigationController: navigationController)
   }
   
-  public override func start() {
+  public func start() {
     let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
     tabBarCoordinator.start()
     childCoordinators.append(tabBarCoordinator)

@@ -9,11 +9,16 @@ import UIKit
 import RxSwift
 import ReactorKit
 
+public protocol LibraryCoordinatorDelegate: AnyObject {
+  func presentToTextFileViewer(file: ContentFile)
+}
+
 public final class LibraryController: BaseController, ReactorKit.View {
   private let mainView: LibraryView = LibraryView()
   private let tabBarItemType: TabBarItemType = .library
   private lazy var tableViewAdapter: LibraryTableViewAdapter = LibraryTableViewAdapter(tableView: mainView.tableView)
 
+  public weak var delegate: LibraryCoordinatorDelegate?
   public var disposeBag: DisposeBag = DisposeBag()
   
   public typealias Reactor = LibraryReactor
@@ -57,7 +62,7 @@ public final class LibraryController: BaseController, ReactorKit.View {
         case .renameFileFailed:
           print("이름 변경 실패")
         case .deleteFileFailed:
-          print("파일 삭제 실패")
+          print("파일 삭제 실패2")
         }
       }
       .disposed(by: disposeBag)
@@ -123,9 +128,7 @@ extension LibraryController: LibraryTableViewAdapterDelegate {
   
   func libraryTableView(didSelectContentItem file: any FileProtocol) {
     guard let file = file as? ContentFile else { return }
-    if let fileContent = String(data: file.data, encoding: .utf8) {
-      print(fileContent)
-    }
+    delegate?.presentToTextFileViewer(file: file)
   }
   
   func libraryTableView(didLongPressOnItem file: any FileProtocol) {

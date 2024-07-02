@@ -16,7 +16,6 @@ public protocol CoordinatorProtocol: AnyObject {
   var navigationController: UINavigationController { get set }
   var childCoordinators: [BaseCoordinator] { get set }
   
-  func start()
   func finish()
 }
 
@@ -47,10 +46,6 @@ open class BaseCoordinator: CoordinatorProtocol {
   
   deinit {
     print("Deinitialized \(Swift.type(of: self))")
-  }
-  
-  open func start() {
-    
   }
 }
 
