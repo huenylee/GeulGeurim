@@ -15,6 +15,9 @@ public final class TextFileScrollViewerView: BaseView {
     view.isScrollEnabled = true
     view.isSelectable = false
     view.showsVerticalScrollIndicator = false
+    view.textContainer.lineFragmentPadding = 0
+    view.textContainerInset = .zero
+    view.contentInset = .zero
     return view
   }()
   
@@ -51,7 +54,7 @@ public final class TextFileScrollViewerView: BaseView {
     textView.font = config.font
     textView.textColor = config.textColor
     textView.textAlignment = config.textAlignment
-    textView.textContainerInset = config.padding
+    textView.textContainerInset = .init(top: 0, left: config.padding.left, bottom: config.padding.bottom, right: config.padding.right)
     
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.lineSpacing = config.lineHeight
